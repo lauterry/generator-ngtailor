@@ -1,0 +1,37 @@
+{
+    "name": "generator-ngtailor",
+    "version": "0.0.0",
+    "description": "Yeoman generator",
+    "license": "MIT",
+    "main": "app/index.js",
+    "repository": "lauterry/generator-ngtailor",
+    "author": {
+        "name": "LAU Thierry",
+        "email": "thierlau@gmail.com",
+        "url": "https://github.com/lauterry"
+    },
+    "engines": {
+        "node": ">=0.10.0"
+    },
+    "scripts": {
+        "test": "mocha"
+    },
+    "files": [
+        "app"
+    ],
+    "keywords": [
+        "yeoman-generator"
+    ],
+    "dependencies": {
+        "yeoman-generator": "~0.16.0",
+        "chalk": "~0.4.0",
+        "semver": "~2.2.1",
+        "underscore.string": "~2.3.3"
+    },
+    "devDependencies": {
+        "mocha": "*"
+    },
+    "peerDependencies": {
+        "yo": ">=1.0.0"
+    }
+}
