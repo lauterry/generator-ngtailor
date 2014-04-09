@@ -1,6 +1,10 @@
 {
-  "name": "package",
-  "version": "0.0.0",
-  "dependencies": {}
+	"name": "<%= _.slugify(name) %>",
+	"version": "<%= version %>",
+	"dependencies": {
+		"angular": "<%= angular_version %>"
+	},
+	"devDependencies": {
+	}
 }
 

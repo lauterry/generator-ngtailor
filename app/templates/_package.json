@@ -1,5 +1,22 @@
 {
-  "name": "package",
-  "version": "0.0.0",
-  "dependencies": {}
+	"name": "<%= _.slugify(name) %>",
+	"version": "<%= version %>",
+	"devDependencies": {
+		"grunt-usemin": "~2.0.0",
+		"grunt-ngmin": "0.0.3",
+		"grunt-contrib-clean": "~0.5.0",
+		"grunt-contrib-concat": "~0.3.0",
+		"grunt-contrib-uglify": "~0.2.7",
+		"grunt-contrib-cssmin": "~0.7.0",
+		"grunt-contrib-watch": "~0.5.3",
+		"grunt-bower-task": "~0.3.4",
+		"grunt-contrib-copy": "~0.4.1",
+		"grunt-contrib-jshint": "~0.7.2",
+		"grunt-contrib-connect": "~0.5.0",
+		"load-grunt-tasks": "~0.2.0",
+		"grunt-bower-install": "~0.8.0",
+		"grunt-newer": "~0.6.0",
+		"grunt-browser-sync": "~0.4.8",
+		"grunt-available-tasks": "~0.4.2"
+	}
 }

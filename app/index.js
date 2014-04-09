@@ -9,30 +9,43 @@ var currentWorkingDirectory = path.basename(process.cwd());
 var NgtailorGenerator = yeoman.generators.Base.extend({
 
     init: function () {
-        this.pkg = require('../package.json');
 
-        // default options
-        this.options = {
-            name : currentWorkingDirectory,
-            angular_version : '*',
-            version : '0.0.1',
-            description : '',
-            csslint : false,
-            complexity : false,
-            test : false,
-            revision : false,
-            gitignore : false,
-            i18n : false,
-            csspreprocessor : 'none',
-            tests : false,
-            imagemin : false,
-            modules : [],
-            thirdModules : []
-        };
+		this.name = currentWorkingDirectory;
+        this.angular_version = '*';
+        this.version = '0.0.1';
+        this.description = '';
+        this.csslint = false;
+        this.complexity = false;
+        this.test = false;
+        this.revision = false;
+        this.gitignore = false;
+        this.i18n = false;
+        this.csspreprocessor = 'none';
+        this.tests = false;
+        this.imagemin = false;
+        this.modules = [];
+        this.thirdModules = [];
+		this.importedModules = "[]";
 
         this.on('end', function () {
             if (!this.options['skip-install']) {
-                this.installDependencies();
+				var that = this,
+					cb = function () {
+						that.log(chalk.green('OK')); // TODO handle end
+					};
+                this.installDependencies({
+					callback : function() {
+						that.spawnCommand('grunt', ['bower-install'], cb)
+							.on('error', cb)
+							.on('exit', function (err) {
+								if (err === 127) {
+									this.log.error('Could not find Grunt. Please install with ' +
+										'`npm install -g Grunt`.');
+								}
+								cb(err);
+						}.bind(this));
+					}
+				});
             }
         });
     },
@@ -47,9 +60,9 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
         this.log(this.yeoman);
 
         // replace it with a short and sweet description of your generator
-        this.log(chalk.magenta('You\'re using the fantastic Ngtailor generator.'));
+        this.log(chalk.magenta('You\'re using the fantastic ngTailor generator.'));
 
-        this.log(chalk.magenta('ngtailor scaffold out an AngularJS application, writing your Grunt and Bower configurations with everything you need'));
+        this.log(chalk.magenta('ngTailor scaffold out an AngularJS application, writing your Grunt and Bower configurations with everything you need'));
 
         var prompts = [
             {
@@ -66,7 +79,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
         }.bind(this));
     },
 
-    askFor: function () {
+    launchAdvancedMode: function () {
 
         if(this.mode === "Advanced"){
 
@@ -153,25 +166,52 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
             ];
 
             this.prompt(prompts, function (props) {
-                console.log(props);
-                this.someOption = props.someOption;
+				this.name = props.name;
+				this.angular_version = props.angular_version;
+				this.version = props.version;
+				this.description = props.description;
+				this.csslint = props.csslint;
+				this.complexity = props.complexity;
+				this.test = props.test;
+				this.revision = props.revision;
+				this.gitignore = props.gitignore;
+				this.i18n = props.i18n;
+				this.csspreprocessor = props.csspreprocessor;
+				this.tests = props.tests;
+				this.imagemin = props.imagemin;
+				this.modules = props.modules;
+				this.thirdModules = props.thirdModules;
 
                 done();
             }.bind(this));
         }
-
     },
 
     app: function () {
         this.mkdir('app');
+		this.template('app/_index.html', 'app/index.html');
+		this.template('app/css/app.css', 'app/css/app.css');
+		this.template('app/js/controllers/mainController.js', 'app/js/controllers/mainController.js');
+		this.template('app/js/app.js', 'app/js/app.js');
 
-        this.copy('_package.json', 'package.json');
-        this.copy('_bower.json', 'bower.json');
+        this.template('_package.json', 'package.json');
+        this.template('_bower.json', 'bower.json');
+		this.template('_README.md', 'README.md');
+
     },
 
-    projectfiles: function () {
-        this.copy('editorconfig', '.editorconfig');
-        this.copy('jshintrc', '.jshintrc');
+	gruntfile: function() {
+		this.copy('Gruntfile.js', 'Gruntfile.js');
+	},
+
+    configFiles: function () {
+        this.copy('.editorconfig', '.editorconfig');
+        this.copy('.jshintrc', '.jshintrc');
+		this.copy('.bowerrc', '.bowerrc');
+		this.copy('.gitignore', '.gitignore');
+		if(this.csslint) {
+			this.copy('.csslintrc', '.csslintrc');
+		}
     }
 });
 

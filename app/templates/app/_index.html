@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html ng-app="{%= name %}">
+<html ng-app="<%= name %>">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width">
-    <title>{%= title %}</title>
+    <title><%= name %></title>
 
-    <!-- build:css css/{%= name %}.css -->
+    <!-- build:css css/<%= name %>.css -->
     <!-- bower:css -->
     <!-- endbower -->
     <link rel="stylesheet" href="css/app.css"/>
@@ -18,7 +18,7 @@
     {{ message }}
 </section>
 
-<!-- build:js js/{%= name %}.js -->
+<!-- build:js js/<%= name %>.js -->
 <!-- bower:js -->
 <!-- endbower -->
 <script type="text/javascript" src="js/app.js"></script>
