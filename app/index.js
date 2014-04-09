@@ -187,7 +187,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
     },
 
 	gruntfile: function() {
-		this.template('_Gruntfile.js', '_Gruntfile.js');
+		this.template('_Gruntfile.js', 'Gruntfile.js');
 	},
 
     configFiles: function () {
