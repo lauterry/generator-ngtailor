@@ -41,4 +41,23 @@ describe('ngtailor generator - Fast Mode', function () {
 			done();
 		});
 	});
+
+	it("don't create unexpected files", function (done) {
+		var expected = [
+			'.csslintrc',
+			'app/less/app.less',
+			'app/less/style.less',
+			'app/scss/app.scss',
+			'app/scss/style.scss',
+		];
+
+		helpers.mockPrompt(this.app, {
+			'mode': 'fast'
+		});
+		this.app.options['skip-install'] = true;
+		this.app.run({}, function () {
+			helpers.assertNoFile(expected);
+			done();
+		});
+	});
 });

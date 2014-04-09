@@ -29,22 +29,8 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 
         this.on('end', function () {
             if (!this.options['skip-install']) {
-				var that = this,
-					cb = function () {
-						that.log(chalk.green('OK')); // TODO handle end
-					};
                 this.installDependencies({
-					callback : function() {
-						that.spawnCommand('grunt', ['bower-install'], cb)
-							.on('error', cb)
-							.on('exit', function (err) {
-								if (err === 127) {
-									this.log.error('Could not find Grunt. Please install with ' +
-										'`npm install -g Grunt`.');
-								}
-								cb(err);
-						}.bind(this));
-					}
+					callback : this._gruntBowerInstall.call(this)
 				});
             }
         });
@@ -201,7 +187,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
     },
 
 	gruntfile: function() {
-		this.copy('Gruntfile.js', 'Gruntfile.js');
+		this.template('_Gruntfile.js', '_Gruntfile.js');
 	},
 
     configFiles: function () {
@@ -212,7 +198,32 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		if(this.csslint) {
 			this.copy('.csslintrc', '.csslintrc');
 		}
-    }
+    },
+
+
+	/***************
+	 *   private   *
+	 ***************/
+
+	_gruntBowerInstall : function () {
+		this.spawnCommand('grunt', ['bower-install'])
+			.on('error', this._finalize)
+			.on('exit', function (err) {
+				if (err === 127) {
+					this.log.error('Could not find Grunt. Please install with ' +
+						'`npm install -g Grunt`.');
+				}
+				this._finalize(err);
+			}.bind(this));
+	},
+
+	_finalize : function (err) {
+		if(err){
+			this.log.error(err);
+		} else {
+			this.log(chalk.green('OK'));
+		}
+	},
 });
 
 module.exports = NgtailorGenerator;
