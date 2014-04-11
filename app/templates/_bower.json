@@ -1,11 +1,17 @@
 {
-	"name": "<%= _.slugify(name) %>",
+	"name": "<%= _.slugify(_.humanize(name)) %>",
 	"version": "<%= version %>",
 	"dependencies": {
-		"angular": "<%= angular_version %>"
+		"angular": "<%= angular_version %>"<% if (i18nModule) { %>,
+		"angular-i18n": "<%= angular_version %>"<% } %><% if (touchModule) { %>,
+		"angular-touch": "<%= angular_version %>"<% } %><% if (animateModule) { %>,
+		"angular-animate": "<%= angular_version %>"<% } %><% if (routeModule) { %>,
+		"angular-route": "<%= angular_version %>"<% } %><% if (resourceModule) { %>,
+		"angular-resource": "<%= angular_version %>"<% } %><% if (sanitizeModule) { %>,
+		"angular-sanitize": "<%= angular_version %>"<% } %><% if (cookieModule) { %>,
+		"angular-cookie": "<%= angular_version %>"<% } %>
 	},
 	"devDependencies": {
-
 	}
 }
 

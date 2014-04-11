@@ -126,8 +126,14 @@ describe('advanced default', function () {
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
 			assert.fileContent('bower.json', /"angular": "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-mocks/);
-			assert.noFileContent('bower.json', /angular-\w/);
+			assert.noFileContent('bower.json', /angular-mocks: "2\.0\.0"/);
+			assert.noFileContent('bower.json', /"angular-i18n": "2\.0\.0"/);
+			assert.noFileContent('bower.json', /angular-touch: "2\.0\.0"/);
+			assert.noFileContent('bower.json', /angular-sanitize: "2\.0\.0"/);
+			assert.noFileContent('bower.json', /angular-resource: "2\.0\.0"/);
+			assert.noFileContent('bower.json', /angular-animate: "2\.0\.0"/);
+			assert.noFileContent('bower.json', /angular-cookie: "2\.0\.0"/);
+			assert.noFileContent('bower.json', /angular-route: "2\.0\.0"/);
 
 			done();
 		});

@@ -115,7 +115,6 @@ module.exports = function(grunt) {
                 files: ['<%%= assetsDir %>/js/**/*.js'],
                 tasks: ['newer:jshint']
             },
-            },
             html : {
                 files: ['<%%= assetsDir %>/**/*.html']
             },

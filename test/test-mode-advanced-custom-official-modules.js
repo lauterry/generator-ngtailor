@@ -4,12 +4,14 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 var assert = require('assert');
 
-describe('fast', function () {
+// TODO Vérifier l'import des modules dans app.js
+
+describe('advanced custom official module', function () {
 
 	var prompts = {};
 
 	beforeEach(function (done) {
-		helpers.testDirectory(path.join(__dirname, 'temp/fast'), function (err) {
+		helpers.testDirectory(path.join(__dirname, 'temp/advanced-custom-official-module'), function (err) {
 			if (err) {
 				return done(err);
 			}
@@ -21,8 +23,31 @@ describe('fast', function () {
 		}.bind(this));
 
 		prompts = {
-			'mode': 'fast'
+			'mode': 'Advanced',
+			'name' : "MyApp",
+			'angular_version' : '2.0.0',
+			'version' : '0.0.1',
+			'description' : 'A Great App',
+			'csslint' : true,
+			'complexity' : true,
+			'test' : false,
+			'revision' : true,
+			'gitignore' : true,
+			'i18n' : true,
+			'csspreprocessor' : 'less',
+			'tests' : [],
+			'imagemin' : true,
+			'modules':[
+				'resourceModule',
+				'cookieModule',
+				'sanitizeModule',
+				'routeModule',
+				'touchModule',
+				'i18nModule',
+				'animateModule'
+			]
 		}
+
 	});
 
 	it('creates expected files', function (done) {
@@ -38,7 +63,11 @@ describe('fast', function () {
 			'app/index.html',
 			'app/css/app.css',
 			'app/js/controllers/mainController.js',
-			'app/js/app.js'
+			'app/js/app.js',
+			'.csslintrc',
+			'app/less/app.less',
+			'app/less/style.less'
+
 		];
 
 		helpers.mockPrompt(this.app, prompts);
@@ -51,9 +80,6 @@ describe('fast', function () {
 
 	it("don't create unexpected files", function (done) {
 		var expected = [
-			'.csslintrc',
-			'app/less/app.less',
-			'app/less/style.less',
 			'app/scss/app.scss',
 			'app/scss/style.scss'
 		];
@@ -68,13 +94,11 @@ describe('fast', function () {
 
 	it("package.json content", function (done) {
 
-		helpers.mockPrompt(this.app, {
-			'mode': 'fast'
-		});
+		helpers.mockPrompt(this.app, prompts);
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
 
-			assert.fileContent('package.json', /"name": "generator-ngtailor"/);
+			assert.fileContent('package.json', /"name": "my-app"/);
 			assert.fileContent('package.json', /"version": "0\.0\.1"/);
 
 			assert.fileContent('package.json', /grunt-usemin/);
@@ -87,6 +111,11 @@ describe('fast', function () {
 			assert.fileContent('package.json', /grunt-bower-task/);
 			assert.fileContent('package.json', /grunt-contrib-copy/);
 			assert.fileContent('package.json', /grunt-contrib-jshint/);
+			assert.fileContent('package.json', /grunt-rev/);
+			assert.fileContent('package.json', /grunt-contrib-less/);
+			assert.fileContent('package.json', /grunt-contrib-csslint/);
+			assert.fileContent('package.json', /grunt-contrib-imagemin/);
+			assert.fileContent('package.json', /grunt-plato/);
 
 			assert.noFileContent('package.json', /grunt-karma/);
 			assert.noFileContent('package.json', /karma-ng-html2js-preprocessor/);
@@ -97,12 +126,8 @@ describe('fast', function () {
 			assert.noFileContent('package.json', /karma/);
 			assert.noFileContent('package.json', /karma-coverage/);
 			assert.noFileContent('package.json', /karma-ng-scenario/);
-			assert.noFileContent('package.json', /grunt-rev/);
 			assert.noFileContent('package.json', /grunt-contrib-sass/);
-			assert.noFileContent('package.json', /grunt-contrib-less/);
-			assert.noFileContent('package.json', /grunt-contrib-csslint/);
-			assert.noFileContent('package.json', /grunt-contrib-imagemin/);
-			assert.noFileContent('package.json', /grunt-plato/);
+
 
 			done();
 		});
@@ -113,16 +138,14 @@ describe('fast', function () {
 		helpers.mockPrompt(this.app, prompts);
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
-			assert.fileContent('bower.json', /angular/);
-			assert.noFileContent('bower.json', /angular-mocks: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /"angular": "2\.0\.0"/);
-			assert.noFileContent('bower.json', /"angular-i18n": "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-touch: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-sanitize: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-resource: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-animate: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-cookie: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-route: "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-i18n": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-touch": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-sanitize": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-resource": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-animate": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-cookie": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-route": "2\.0\.0"/);
 
 			done();
 		});
@@ -147,14 +170,14 @@ describe('fast', function () {
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', 'usemin'\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \['package'\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ls', \['availabletasks'\]\)/);
+			assert.fileContent('Gruntfile.js', /rev/);
+			assert.fileContent('Gruntfile.js', /csslint/);
+			assert.fileContent('Gruntfile.js', /plato/);
+			assert.fileContent('Gruntfile.js', /less/);
+			assert.fileContent('Gruntfile.js', /imagemin/);
 
-			assert.noFileContent('Gruntfile.js', /rev/);
-			assert.noFileContent('Gruntfile.js', /csslint/);
 			assert.noFileContent('Gruntfile.js', /karma/);
-			assert.noFileContent('Gruntfile.js', /plato/);
 			assert.noFileContent('Gruntfile.js', /sass/);
-			assert.noFileContent('Gruntfile.js', /less/);
-			assert.noFileContent('Gruntfile.js', /imagemin/);
 
 			done();
 		});

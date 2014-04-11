@@ -7,7 +7,11 @@ var semver = require("semver");
 var currentWorkingDirectory = path.basename(process.cwd());
 
 var hasOption = function (options, option) {
-	return options.indexOf(option) !== -1;
+	if(options){
+		return options.indexOf(option) !== -1;
+	} else {
+		return false;
+	}
 };
 
 var NgtailorGenerator = yeoman.generators.Base.extend({
@@ -27,7 +31,13 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
         this.csspreprocessor = 'none';
         this.tests = false;
         this.imagemin = false;
-        this.modules = [];
+		this.resourceModule = false;
+		this.cookieModule = false;
+		this.sanitizeModule = false;
+		this.routeModule = false;
+		this.i18nModule = false;
+		this.animateModule = false;
+		this.touchModule = false;
         this.thirdModules = [];
 		this.importedModules = "[]";
 
@@ -104,8 +114,8 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 						name: 'angular-resource.js',
 						checked: false
 					}, {
-						value: 'cookiesModule',
-						name: 'angular-cookies.js',
+						value: 'cookieModule',
+						name: 'angular-cookie.js',
 						checked: false
 					}, {
 						value: 'sanitizeModule',
@@ -197,10 +207,10 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				this.csspreprocessor = props.csspreprocessor;
 				this.tests = props.tests;
 				this.imagemin = props.imagemin;
-				this.modules = props.modules;
 				this.thirdModules = props.thirdModules;
 
-				console.log(props);
+				this._handleOfficialModules(props.modules);
+
 
                 done();
             }.bind(this));
@@ -243,6 +253,16 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 	/***************
 	 *   private   *
 	 ***************/
+
+   	_handleOfficialModules : function (modules) {
+		this.resourceModule = hasOption(modules, 'resourceModule');
+		this.cookieModule = hasOption(modules,'cookieModule');
+		this.sanitizeModule = hasOption(modules,'sanitizeModule');
+		this.routeModule = hasOption(modules, 'routeModule');
+		this.i18nModule = hasOption(modules, 'i18nModule');
+		this.animateModule = hasOption(modules, 'animateModule');
+		this.touchModule = hasOption(modules, 'touchModule');
+	},
 
 	_gruntBowerInstall : function () {
 		this.spawnCommand('grunt', ['bower-install'])
