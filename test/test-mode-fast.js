@@ -4,18 +4,25 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 var assert = require('assert');
 
-describe('ngtailor generator - Fast Mode', function () {
+describe('fast', function () {
+
+	var prompts = {};
+
 	beforeEach(function (done) {
-		helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+		helpers.testDirectory(path.join(__dirname, 'temp/fast'), function (err) {
 			if (err) {
 				return done(err);
 			}
 
 			this.app = helpers.createGenerator('ngtailor:app', [
-				'../../app'
+				'../../../app'
 			]);
 			done();
 		}.bind(this));
+
+		prompts = {
+			'mode': 'fast'
+		}
 	});
 
 	it('creates expected files', function (done) {
@@ -34,9 +41,7 @@ describe('ngtailor generator - Fast Mode', function () {
 			'app/js/app.js'
 		];
 
-		helpers.mockPrompt(this.app, {
-			'mode': 'fast'
-		});
+		helpers.mockPrompt(this.app, prompts);
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
 			assert.file(expected);
@@ -53,9 +58,7 @@ describe('ngtailor generator - Fast Mode', function () {
 			'app/scss/style.scss'
 		];
 
-		helpers.mockPrompt(this.app, {
-			'mode': 'fast'
-		});
+		helpers.mockPrompt(this.app, prompts);
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
 			assert.noFile(expected);
@@ -70,6 +73,10 @@ describe('ngtailor generator - Fast Mode', function () {
 		});
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
+
+			assert.fileContent('package.json', /"name": "generator-ngtailor"/);
+			assert.fileContent('package.json', /"version": "0\.0\.1"/);
+
 			assert.fileContent('package.json', /grunt-usemin/);
 			assert.fileContent('package.json', /grunt-ngmin/);
 			assert.fileContent('package.json', /grunt-contrib-clean/);
@@ -92,6 +99,7 @@ describe('ngtailor generator - Fast Mode', function () {
 			assert.noFileContent('package.json', /karma-ng-scenario/);
 			assert.noFileContent('package.json', /grunt-rev/);
 			assert.noFileContent('package.json', /grunt-contrib-sass/);
+			assert.noFileContent('package.json', /grunt-contrib-less/);
 			assert.noFileContent('package.json', /grunt-contrib-csslint/);
 			assert.noFileContent('package.json', /grunt-contrib-imagemin/);
 			assert.noFileContent('package.json', /grunt-plato/);
@@ -102,9 +110,7 @@ describe('ngtailor generator - Fast Mode', function () {
 
 	it("bower.json content", function (done) {
 
-		helpers.mockPrompt(this.app, {
-			'mode': 'fast'
-		});
+		helpers.mockPrompt(this.app, prompts);
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
 			assert.fileContent('bower.json', /angular/);
@@ -117,9 +123,7 @@ describe('ngtailor generator - Fast Mode', function () {
 
 	it("gruntfile.js content", function (done) {
 
-		helpers.mockPrompt(this.app, {
-			'mode': 'fast'
-		});
+		helpers.mockPrompt(this.app, prompts);
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
 			assert.fileContent('Gruntfile.js', /availabletasks/);
@@ -136,6 +140,14 @@ describe('ngtailor generator - Fast Mode', function () {
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', 'usemin'\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \['package'\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ls', \['availabletasks'\]\)/);
+
+			assert.noFileContent('Gruntfile.js', /rev/);
+			assert.noFileContent('Gruntfile.js', /csslint/);
+			assert.noFileContent('Gruntfile.js', /karma/);
+			assert.noFileContent('Gruntfile.js', /plato/);
+			assert.noFileContent('Gruntfile.js', /sass/);
+			assert.noFileContent('Gruntfile.js', /less/);
+			assert.noFileContent('Gruntfile.js', /imagemin/);
 
 			done();
 		});

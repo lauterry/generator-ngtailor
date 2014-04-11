@@ -1,5 +1,5 @@
 {
-	"name": "<%= _.slugify(name) %>",
+	"name": "<%=  _.slugify(_.humanize(name))  %>",
 	"version": "<%= version %>",
 	"devDependencies": {
 		"grunt-usemin": "~2.0.0",
@@ -17,6 +17,12 @@
 		"grunt-bower-install": "~0.8.0",
 		"grunt-newer": "~0.6.0",
 		"grunt-browser-sync": "~0.4.8",
-		"grunt-available-tasks": "~0.4.2"
+		"grunt-available-tasks": "~0.4.2"<% if (csspreprocessor === "sass") { %>,
+		"grunt-contrib-sass": "0.6.0"<% } %><% if (csspreprocessor === "less") { %>,
+		"grunt-contrib-less": "0.10.0"<% } %><% if (revision) { %>,
+		"grunt-rev": "0.1.0"<% } %><% if (csslint) { %>,
+		"grunt-contrib-csslint": "0.2.0"<% } %><% if (imagemin) { %>,
+		"grunt-contrib-imagemin": "0.4.1"<% } %><% if (complexity) { %>,
+		"grunt-plato": "0.2.1"<% } %>
 	}
 }

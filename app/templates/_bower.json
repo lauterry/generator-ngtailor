@@ -5,6 +5,7 @@
 		"angular": "<%= angular_version %>"
 	},
 	"devDependencies": {
+
 	}
 }
 

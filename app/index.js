@@ -6,6 +6,10 @@ var chalk = require('chalk');
 var semver = require("semver");
 var currentWorkingDirectory = path.basename(process.cwd());
 
+var hasOption = function (options, option) {
+	return options.indexOf(option) !== -1;
+};
+
 var NgtailorGenerator = yeoman.generators.Base.extend({
 
     init: function () {
@@ -95,7 +99,35 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
                     type: "checkbox",
                     name: "modules",
                     message: "What official angular modules do you need ?",
-                    choices: [ "i18n", "route", "resource", "animate", "cookies", "sanitize", "touch" ]
+					choices : [{
+						value: 'resourceModule',
+						name: 'angular-resource.js',
+						checked: false
+					}, {
+						value: 'cookiesModule',
+						name: 'angular-cookies.js',
+						checked: false
+					}, {
+						value: 'sanitizeModule',
+						name: 'angular-sanitize.js',
+						checked: false
+					}, {
+						value: 'routeModule',
+						name: 'angular-route.js',
+						checked: false
+					}, {
+						value: 'touchModule',
+						name: 'angular-touch.js',
+						checked: false
+					}, {
+						value: 'i18nModule',
+						name: 'angular-i18n.js',
+						checked: false
+					}, {
+						value: 'animateModule',
+						name: 'angular-animate.js',
+						checked: false
+					}]
                 },
                 {
                     type: "checkbox",
@@ -168,6 +200,8 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				this.modules = props.modules;
 				this.thirdModules = props.thirdModules;
 
+				console.log(props);
+
                 done();
             }.bind(this));
         }
@@ -180,15 +214,20 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		this.template('app/js/controllers/mainController.js', 'app/js/controllers/mainController.js');
 		this.template('app/js/app.js', 'app/js/app.js');
 
+		if(hasOption(this.csspreprocessor, 'sass')){
+			this.template('app/scss/style.scss', 'app/scss/style.scss');
+			this.template('app/scss/app.scss', 'app/scss/app.scss');
+		} else if (hasOption(this.csspreprocessor, 'less')) {
+			this.template('app/less/style.less', 'app/less/style.less');
+			this.template('app/less/app.less', 'app/less/app.less');
+		}
+
         this.template('_package.json', 'package.json');
-        this.template('_bower.json', 'bower.json');
+		this.template('_bower.json', 'bower.json');
+		this.template('_Gruntfile.js', 'Gruntfile.js');
 		this.template('_README.md', 'README.md');
 
     },
-
-	gruntfile: function() {
-		this.template('_Gruntfile.js', 'Gruntfile.js');
-	},
 
     configFiles: function () {
         this.copy('.editorconfig', '.editorconfig');
@@ -223,7 +262,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		} else {
 			this.log(chalk.green('OK'));
 		}
-	},
+	}
 });
 
 module.exports = NgtailorGenerator;
