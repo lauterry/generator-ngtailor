@@ -44,7 +44,8 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		this.carouselModule = false;
 		this.bindonceModule = false;
 		this.thirdModules = false;
-		this.importedModules = "[]";
+		this.angularDeps = "";
+		this.angularProviders = "";
 
         this.on('end', function () {
             if (!this.options['skip-install']) {
@@ -234,8 +235,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				this.imagemin = props.imagemin;
 				this.thirdModules = props.thirdModules;
 
-				this._handleOfficialModules(props.modules);
-				this._handleThirdModules(props.thirdModules);
+				this._handleModules(props.modules, props.thirdModules);
 
                 done();
             }.bind(this));
@@ -279,7 +279,10 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 	 *   private   *
 	 ***************/
 
-   	_handleOfficialModules : function (modules) {
+   	_handleModules : function (modules, thirdModules) {
+		var angMods = [],
+			angProviders = [];
+
 		this.resourceModule = hasOption(modules, 'resourceModule');
 		this.cookieModule = hasOption(modules,'cookieModule');
 		this.sanitizeModule = hasOption(modules,'sanitizeModule');
@@ -287,14 +290,55 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		this.i18nModule = hasOption(modules, 'i18nModule');
 		this.animateModule = hasOption(modules, 'animateModule');
 		this.touchModule = hasOption(modules, 'touchModule');
-	},
 
-	_handleThirdModules : function (modules) {
-		this.uiRouterModule = hasOption(modules, 'uiRouterModule');
-		this.translateModule = hasOption(modules,'translateModule');
-		this.snapModule = hasOption(modules,'snapModule');
-		this.carouselModule = hasOption(modules, 'carouselModule');
-		this.bindonceModule = hasOption(modules, 'bindonceModule');
+		this.uiRouterModule = hasOption(thirdModules, 'uiRouterModule');
+		this.translateModule = hasOption(thirdModules,'translateModule');
+		this.snapModule = hasOption(thirdModules,'snapModule');
+		this.carouselModule = hasOption(thirdModules, 'carouselModule');
+		this.bindonceModule = hasOption(thirdModules, 'bindonceModule');
+
+		if (this.resourceModule) {
+			angMods.push("'ngResource'");
+		}
+		if (this.cookieModule) {
+			angMods.push("'ngCookie'");
+		}
+		if (this.sanitizeModule) {
+			angMods.push("'ngSanitize'");
+		}
+		if (this.routeModule) {
+			angMods.push("'ngRoute'");
+		}
+		if (this.animateModule) {
+			angMods.push("'ngAnimate'");
+		}
+		if (this.touchModule) {
+			angMods.push("'ngTouch'");
+		}
+
+		if (this.uiRouterModule) {
+			angMods.push("'ui-router'");
+			angProviders.push("$stateProvider");
+			angProviders.push("$urlRouterProvider");
+		}
+		if (this.translateModule) {
+			angMods.push("'pascalprecht.translate'");
+			angProviders.push("$translateProvider")
+		}
+		if (this.snapModule) {
+			angMods.push("'snap'");
+		}
+		if (this.carouselModule) {
+			angMods.push("'angular-carousel'");
+		}
+		if (this.bindonceModule) {
+			angMods.push("'pasvaz.bindonce'");
+		}
+
+		if (angMods.length) {
+			this.angularDeps = '\n    ' + angMods.join(',\n    ') + '\n';
+			this.angularProviders = angProviders.join(', ');
+		}
 	},
 
 	_gruntBowerInstall : function () {
