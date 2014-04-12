@@ -4,12 +4,14 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 var assert = require('assert');
 
-describe('advanced custom sass', function () {
+// TODO Vérifier l'import des modules dans app.js
+
+describe('advanced custom third module', function () {
 
 	var prompts = {};
 
 	beforeEach(function (done) {
-		helpers.testDirectory(path.join(__dirname, 'temp/advanced-custom-sass'), function (err) {
+		helpers.testDirectory(path.join(__dirname, 'temp/advanced-custom-third-module'), function (err) {
 			if (err) {
 				return done(err);
 			}
@@ -32,9 +34,25 @@ describe('advanced custom sass', function () {
 			'revision' : true,
 			'gitignore' : true,
 			'i18n' : true,
-			'csspreprocessor' : 'sass',
+			'csspreprocessor' : 'less',
 			'tests' : [],
-			'imagemin' : true
+			'imagemin' : true,
+			'modules':[
+				'resourceModule',
+				'cookieModule',
+				'sanitizeModule',
+				'routeModule',
+				'touchModule',
+				'i18nModule',
+				'animateModule'
+			],
+			'thirdModules':[
+				'snapModule',
+				'carouselModule',
+				'bindonceModule',
+				'uiRouterModule',
+				'translateModule'
+			]
 		}
 
 	});
@@ -54,8 +72,9 @@ describe('advanced custom sass', function () {
 			'app/js/controllers/mainController.js',
 			'app/js/app.js',
 			'.csslintrc',
-			'app/scss/app.scss',
-			'app/scss/style.scss'
+			'app/less/app.less',
+			'app/less/style.less'
+
 		];
 
 		helpers.mockPrompt(this.app, prompts);
@@ -68,8 +87,8 @@ describe('advanced custom sass', function () {
 
 	it("don't create unexpected files", function (done) {
 		var expected = [
-			'app/less/app.less',
-			'app/less/style.less'
+			'app/scss/app.scss',
+			'app/scss/style.scss'
 		];
 
 		helpers.mockPrompt(this.app, prompts);
@@ -100,7 +119,7 @@ describe('advanced custom sass', function () {
 			assert.fileContent('package.json', /grunt-contrib-copy/);
 			assert.fileContent('package.json', /grunt-contrib-jshint/);
 			assert.fileContent('package.json', /grunt-rev/);
-			assert.fileContent('package.json', /grunt-contrib-sass/);
+			assert.fileContent('package.json', /grunt-contrib-less/);
 			assert.fileContent('package.json', /grunt-contrib-csslint/);
 			assert.fileContent('package.json', /grunt-contrib-imagemin/);
 			assert.fileContent('package.json', /grunt-plato/);
@@ -114,7 +133,7 @@ describe('advanced custom sass', function () {
 			assert.noFileContent('package.json', /karma/);
 			assert.noFileContent('package.json', /karma-coverage/);
 			assert.noFileContent('package.json', /karma-ng-scenario/);
-			assert.noFileContent('package.json', /grunt-contrib-less/);
+			assert.noFileContent('package.json', /grunt-contrib-sass/);
 
 
 			done();
@@ -127,19 +146,20 @@ describe('advanced custom sass', function () {
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
 			assert.fileContent('bower.json', /"angular": "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-mocks: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /"angular-i18n": "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-touch: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-sanitize: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-resource: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-animate: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-cookie: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-route: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /"angular-ui-router"/);
-			assert.noFileContent('bower.json', /"angular-translate"/);
-			assert.noFileContent('bower.json', /"angular-snap"/);
-			assert.noFileContent('bower.json', /"revolunet-angular-carousel"/);
-			assert.noFileContent('bower.json', /"angular-bindonce"/);
+			assert.fileContent('bower.json', /"angular-i18n": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-touch": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-sanitize": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-resource": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-animate": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-cookie": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-route": "2\.0\.0"/);
+
+			assert.fileContent('bower.json', /"angular-ui-router"/);
+			assert.fileContent('bower.json', /"angular-translate"/);
+			assert.fileContent('bower.json', /"angular-snap"/);
+			assert.fileContent('bower.json', /"angular-carousel"/);
+			assert.fileContent('bower.json', /"angular-bindonce"/);
+
 
 			done();
 		});
@@ -167,11 +187,11 @@ describe('advanced custom sass', function () {
 			assert.fileContent('Gruntfile.js', /rev/);
 			assert.fileContent('Gruntfile.js', /csslint/);
 			assert.fileContent('Gruntfile.js', /plato/);
-			assert.fileContent('Gruntfile.js', /sass/);
+			assert.fileContent('Gruntfile.js', /less/);
 			assert.fileContent('Gruntfile.js', /imagemin/);
 
 			assert.noFileContent('Gruntfile.js', /karma/);
-			assert.noFileContent('Gruntfile.js', /less/);
+			assert.noFileContent('Gruntfile.js', /sass/);
 
 			done();
 		});

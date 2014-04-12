@@ -38,7 +38,12 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		this.i18nModule = false;
 		this.animateModule = false;
 		this.touchModule = false;
-        this.thirdModules = [];
+		this.uiRouterModule = false;
+		this.translateModule = false;
+		this.snapModule = false;
+		this.carouselModule = false;
+		this.bindonceModule = false;
+		this.thirdModules = false;
 		this.importedModules = "[]";
 
         this.on('end', function () {
@@ -143,7 +148,27 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
                     type: "checkbox",
                     name: 'thirdModules',
                     message: 'What amazing angular modules do you need ?',
-                    choices: [ "angular-ui-router", "angular-translate", "angular-snap", "revolunet-angular-carousel", "angular-bindonce" ]
+                    choices: [{
+						value: 'uiRouterModule',
+						name: 'angular-ui-router.js',
+						checked: false
+					}, {
+						value: 'translateModule',
+						name: 'angular-translate.js',
+						checked: false
+					}, {
+						value: 'snapModule',
+						name: 'angular-snap.js',
+						checked: false
+					}, {
+						value: 'carouselModule',
+						name: 'angular-carousel.js',
+						checked: false
+					}, {
+						value: 'bindonceModule',
+						name: 'angular-bindonce.js',
+						checked: false
+					}]
                 },
                 {
                     type: "confirm",
@@ -210,7 +235,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				this.thirdModules = props.thirdModules;
 
 				this._handleOfficialModules(props.modules);
-
+				this._handleThirdModules(props.thirdModules);
 
                 done();
             }.bind(this));
@@ -262,6 +287,14 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		this.i18nModule = hasOption(modules, 'i18nModule');
 		this.animateModule = hasOption(modules, 'animateModule');
 		this.touchModule = hasOption(modules, 'touchModule');
+	},
+
+	_handleThirdModules : function (modules) {
+		this.uiRouterModule = hasOption(modules, 'uiRouterModule');
+		this.translateModule = hasOption(modules,'translateModule');
+		this.snapModule = hasOption(modules,'snapModule');
+		this.carouselModule = hasOption(modules, 'carouselModule');
+		this.bindonceModule = hasOption(modules, 'bindonceModule');
 	},
 
 	_gruntBowerInstall : function () {

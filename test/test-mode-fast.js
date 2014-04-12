@@ -123,6 +123,11 @@ describe('fast', function () {
 			assert.noFileContent('bower.json', /angular-animate: "2\.0\.0"/);
 			assert.noFileContent('bower.json', /angular-cookie: "2\.0\.0"/);
 			assert.noFileContent('bower.json', /angular-route: "2\.0\.0"/);
+			assert.noFileContent('bower.json', /"angular-ui-router"/);
+			assert.noFileContent('bower.json', /"angular-translate"/);
+			assert.noFileContent('bower.json', /"angular-snap"/);
+			assert.noFileContent('bower.json', /"revolunet-angular-carousel"/);
+			assert.noFileContent('bower.json', /"angular-bindonce"/);
 
 			done();
 		});
