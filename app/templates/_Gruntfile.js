@@ -14,7 +14,7 @@ module.exports = function(grunt) {
                 options: {
                     filter: 'include',
                     groups: {
-                        'Development': ['dev'],
+                        'Development': ['dev'<% if (complexity) { %>, 'report'<% } %>],
                         'Production': ['package'],
                         'Continuous Integration': ['ci']
                     },
@@ -22,9 +22,10 @@ module.exports = function(grunt) {
                     descriptions: {
                         'dev' : 'Launch the static server and watch tasks',
                         'package' : 'Package your web app for distribution',
-                        'ci' : 'Run unit & e2e tests, package your webapp and generate reports. Use this task for Continuous Integration'
+                        'ci' : 'Run unit & e2e tests, package your webapp and generate reports. Use this task for Continuous Integration'<% if (complexity) { %>,git
+						'report' : 'Open Plato reports in your browser'<% } %>
                     },
-                    tasks: ['dev', 'package', 'ci']
+                    tasks: ['dev', 'package', 'ci'<% if (complexity) { %>, 'report'<% } %>]
                 }
             }
         },
