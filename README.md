@@ -2,13 +2,13 @@
 
 Offers you a tailor-made workflow for your Angularjs Web App.
 
-<img height="250" align="left" src="http://bower.io/img/bower-logo.png">
+<img height="175" align="left" src="http://gruntjs.com/img/grunt-logo.svg">
 
-<img height="250" align="left" src="http://yeoman.io/assets/img/yeoman-logo.a053.png">
+<img height="175" align="left" src="http://bower.io/img/bower-logo.png">
 
-<img height="250" align="left" src="https://s3.amazonaws.com/media-p.slid.es/uploads/hugojosefson/images/86267/angularjs-logo.png">
+<img height="175" align="left" src="http://yeoman.io/assets/img/yeoman-logo.a053.png">
 
-<img height="250" align="left" src="http://gruntjs.com/img/grunt-logo.svg">
+<img height="175" align="left" src="https://s3.amazonaws.com/media-p.slid.es/uploads/hugojosefson/images/86267/angularjs-logo.png">
 
 ## Why is ngTailor interesting ?
 You love Angularjs, Grunt, Bower and Yeoman ? You might be interested by ngTailor.
