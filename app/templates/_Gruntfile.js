@@ -72,7 +72,7 @@ module.exports = function(grunt) {
         usemin: {
             html: '<%%= distDir %>/index.html'
         },
-        browser_sync: {
+		browserSync: {
             dev: {
                 bsFiles: {
                     src : ['<%%= assetsDir %>/**/*.html', '<%%= assetsDir %>/**/*.js', '<%%= assetsDir %>/**/*.css']
@@ -192,10 +192,10 @@ module.exports = function(grunt) {
         }
     });
 
-	// TODO add extra tasks
-    grunt.registerTask('dev', ['browser_sync', 'watch']);
-    grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', 'usemin']);
-    grunt.registerTask('ci', ['package']);
-    grunt.registerTask('ls', ['availabletasks']);
+    grunt.registerTask('dev', [<%= devGruntTasks %>]);
+    grunt.registerTask('package', [<%= packageGruntTasks %>]);
+    grunt.registerTask('ci', [<%= ciGruntTasks %>]);
+    grunt.registerTask('ls', ['availabletasks']);<% if (complexity) { %>
+    grunt.registerTask('report', ['plato', 'connect:plato']);<% } %>
 
 };

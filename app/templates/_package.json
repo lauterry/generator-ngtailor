@@ -16,7 +16,7 @@
 		"load-grunt-tasks": "~0.2.0",
 		"grunt-bower-install": "~0.8.0",
 		"grunt-newer": "~0.6.0",
-		"grunt-browser-sync": "~0.4.8",
+		"grunt-browser-sync": "~0.7.1",
 		"grunt-available-tasks": "~0.4.2"<% if (csspreprocessor === "sass") { %>,
 		"grunt-contrib-sass": "0.6.0"<% } %><% if (csspreprocessor === "less") { %>,
 		"grunt-contrib-less": "0.10.0"<% } %><% if (revision) { %>,

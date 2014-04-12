@@ -44,8 +44,12 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		this.carouselModule = false;
 		this.bindonceModule = false;
 		this.thirdModules = false;
-		this.angularDeps = "";
-		this.angularProviders = "";
+		this.angularDeps = ""; 			// modules to import in angular.module()
+		this.angularProviders = ""; 	// providers to inject in angular.module().config()
+
+		this.packageGruntTasks = "";
+		this.ciGruntTasks = "";
+		this.devGruntTasks = "";
 
         this.on('end', function () {
             if (!this.options['skip-install']) {
@@ -80,7 +84,13 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
         ];
 
         this.prompt(prompts, function (props) {
-            this.mode = props.mode;
+
+			this.mode = props.mode;
+
+			if(this.mode === "fast") {
+				this._prepareGruntTasks();
+			}
+
             done();
         }.bind(this));
     },
@@ -228,7 +238,6 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				this.complexity = props.complexity;
 				this.test = props.test;
 				this.revision = props.revision;
-				this.gitignore = props.gitignore;
 				this.i18n = props.i18n;
 				this.csspreprocessor = props.csspreprocessor;
 				this.tests = props.tests;
@@ -236,6 +245,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				this.thirdModules = props.thirdModules;
 
 				this._handleModules(props.modules, props.thirdModules);
+				this._prepareGruntTasks();
 
                 done();
             }.bind(this));
@@ -339,6 +349,72 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 			this.angularDeps = '\n    ' + angMods.join(',\n    ') + '\n';
 			this.angularProviders = angProviders.join(', ');
 		}
+	},
+
+	_prepareGruntTasks : function() {
+
+		var packageTasks = [],
+			ciTasks = [],
+			devTasks = [];
+
+
+		/*****************
+		 *  Package Task *
+		 *****************/
+		packageTasks.push("'jshint'");
+		packageTasks.push("'clean'");
+		packageTasks.push("'useminPrepare'");
+		packageTasks.push("'copy'");
+		packageTasks.push("'concat'");
+		packageTasks.push("'ngmin'");
+		packageTasks.push("'uglify'");
+
+		if(hasOption(this.csspreprocessor, 'sass')) {
+			packageTasks.push("'sass'");
+		} else if (hasOption(this.csspreprocessor, 'less')) {
+			packageTasks.push("'less'");
+		}
+		packageTasks.push("'cssmin'");
+		if(this.revision) {
+			packageTasks.push("'rev'");
+		}
+		if(this.imagemin) {
+			packageTasks.push("'imagemin'");
+		}
+		packageTasks.push("'usemin'");
+
+		if (packageTasks.length) {
+			this.packageGruntTasks = packageTasks.join(', ');
+		}
+
+		/*****************
+		 *    ci Task    *
+		 *****************/
+		ciTasks.push("'package'");
+		if(this.complexity) {
+			ciTasks.push("'plato'");
+		}
+
+		if (ciTasks.length) {
+			this.ciGruntTasks = ciTasks.join(', ');
+		}
+
+
+		/*****************
+		 *    dev Task   *
+		 *****************/
+		if(hasOption(this.csspreprocessor, 'sass')) {
+			devTasks.push("'sass'");
+		} else if (hasOption(this.csspreprocessor, 'less')) {
+			devTasks.push("'less'");
+		}
+		devTasks.push("'browserSync'");
+		devTasks.push("'watch'");
+
+		if (devTasks.length) {
+			this.devGruntTasks = devTasks.join(', ');
+		}
+
 	},
 
 	_gruntBowerInstall : function () {
