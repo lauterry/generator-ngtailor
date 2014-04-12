@@ -10,9 +10,11 @@ Offers you a tailor-made workflow for your Angularjs Web App.
 
 <img height="175" align="left" src="https://s3.amazonaws.com/media-p.slid.es/uploads/hugojosefson/images/86267/angularjs-logo.png">
 
+
 ## Why is ngTailor interesting ?
 You love Angularjs, Grunt, Bower and Yeoman ? You might be interested by ngTailor.
 ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower configurations and prepare for you revelant Grunt tasks you needs.
+
 
 ## Features
 * Let you choose the Angularjs modules you need.
@@ -29,11 +31,13 @@ ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower
 * Optimize your images (png, jpeg, gif)
 * Keep multiple browsers devices in sync using [grunt-browser-sync](https://github.com/shakyShane/browser-sync)
 
+
 ## ngTailor vs Yeoman generator-angular ?
 Both aim to provide you a collection of tools and best practices to improve your productivity as a modern front end developer.
 Yeoman generator-angular is great but in my opinion, it provides a bloated solution to manage and build angularjs applications.
 ngTailor let you choose in a much more fine-grained way, each tools or components you want to be included in your application and workflow.
 Note that ngTailor do not provide generator for directives, controllers etc like yeoman and generator-angular do.
+
 
 ## Getting Started
 ### Prerequisites
@@ -55,7 +59,7 @@ To check that everything is ok :
 
 
 ## Workflow
-### Developement
+### Development
 * Run `grunt dev` to start a static web server and open your browser.
 * Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.
 * `jshint` and/or `csslint` will be run on your files when they change.
@@ -74,7 +78,6 @@ To check that everything is ok :
 
 ## Update ngTailor
 * `npm update -g generator-ngtailor`
-
 
 ## Getting To Know Yeoman
 
