@@ -1,6 +1,6 @@
 {
     "name": "generator-ngtailor",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "Yeoman generator",
     "license": "MIT",
     "main": "app/index.js",
@@ -20,7 +20,12 @@
         "app"
     ],
     "keywords": [
-        "yeoman-generator"
+        "yeoman-generator",
+		"ngtailor",
+		"grunt",
+		"angular",
+		"scaffold",
+		"yeoman"
     ],
     "dependencies": {
         "yeoman-generator": "~0.16.0",
