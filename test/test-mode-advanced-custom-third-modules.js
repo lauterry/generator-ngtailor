@@ -151,7 +151,7 @@ describe('advanced custom third module', function () {
 			assert.fileContent('bower.json', /"angular-sanitize": "2\.0\.0"/);
 			assert.fileContent('bower.json', /"angular-resource": "2\.0\.0"/);
 			assert.fileContent('bower.json', /"angular-animate": "2\.0\.0"/);
-			assert.fileContent('bower.json', /"angular-cookie": "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-cookies": "2\.0\.0"/);
 			assert.fileContent('bower.json', /"angular-route": "2\.0\.0"/);
 
 			assert.fileContent('bower.json', /"angular-ui-router"/);

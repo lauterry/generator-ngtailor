@@ -121,7 +121,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 						checked: false
 					}, {
 						value: 'cookieModule',
-						name: 'angular-cookie.js',
+						name: 'angular-cookies.js',
 						checked: false
 					}, {
 						value: 'sanitizeModule',
@@ -301,7 +301,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 			angMods.push("'ngResource'");
 		}
 		if (this.cookieModule) {
-			angMods.push("'ngCookie'");
+			angMods.push("'ngCookies'");
 		}
 		if (this.sanitizeModule) {
 			angMods.push("'ngSanitize'");
@@ -317,7 +317,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		}
 
 		if (this.uiRouterModule) {
-			angMods.push("'ui-router'");
+			angMods.push("'ui.router'");
 			angProviders.push("$stateProvider");
 			angProviders.push("$urlRouterProvider");
 		}

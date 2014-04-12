@@ -9,7 +9,7 @@
 		"angular-route": "<%= angular_version %>"<% } %><% if (resourceModule) { %>,
 		"angular-resource": "<%= angular_version %>"<% } %><% if (sanitizeModule) { %>,
 		"angular-sanitize": "<%= angular_version %>"<% } %><% if (cookieModule) { %>,
-		"angular-cookie": "<%= angular_version %>"<% } %><% if (uiRouterModule) { %>,
+		"angular-cookies": "<%= angular_version %>"<% } %><% if (uiRouterModule) { %>,
 		"angular-ui-router": "0.2.10"<% } %><% if (translateModule) { %>,
 		"angular-translate": "2.1.0"<% } %><% if (snapModule) { %>,
 		"angular-snap": "1.4.1"<% } %><% if (carouselModule) { %>,

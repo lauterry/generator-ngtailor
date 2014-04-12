@@ -192,6 +192,7 @@ module.exports = function(grunt) {
         }
     });
 
+	// TODO add extra tasks
     grunt.registerTask('dev', ['browser_sync', 'watch']);
     grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', 'usemin']);
     grunt.registerTask('ci', ['package']);

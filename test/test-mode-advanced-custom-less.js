@@ -134,7 +134,7 @@ describe('advanced custom less', function () {
 			assert.noFileContent('bower.json', /angular-sanitize: "2\.0\.0"/);
 			assert.noFileContent('bower.json', /angular-resource: "2\.0\.0"/);
 			assert.noFileContent('bower.json', /angular-animate: "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-cookie: "2\.0\.0"/);
+			assert.noFileContent('bower.json', /angular-cookies: "2\.0\.0"/);
 			assert.noFileContent('bower.json', /angular-route: "2\.0\.0"/);
 			assert.noFileContent('bower.json', /"angular-ui-router"/);
 			assert.noFileContent('bower.json', /"angular-translate"/);
