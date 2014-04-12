@@ -176,5 +176,15 @@ describe('advanced default', function () {
 		});
 	});
 
+	it("app.js content", function (done) {
+
+		helpers.mockPrompt(this.app, prompts);
+		this.app.options['skip-install'] = true;
+		this.app.run({}, function () {
+			assert.fileContent('app/js/app.js', /angular\.module\('MyApp'/);
+			assert.noFileContent('app/js/app.js', /angular\.module\('MyApp'\)\.config\(function\(\$stateProvider, \$urlRouterProvider, \$translateProvider/);
+			done();
+		});
+	});
 
 });
