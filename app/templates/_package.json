@@ -23,6 +23,15 @@
 		"grunt-rev": "0.1.0"<% } %><% if (csslint) { %>,
 		"grunt-contrib-csslint": "0.2.0"<% } %><% if (imagemin) { %>,
 		"grunt-contrib-imagemin": "0.4.1"<% } %><% if (complexity) { %>,
-		"grunt-plato": "0.2.1"<% } %>
+		"grunt-plato": "0.2.1"<% } %><% if (unitTest) { %>,
+		"karma-ng-html2js-preprocessor": "~0.1.0",
+		"karma-chrome-launcher": "~0.1.0",
+		"karma-firefox-launcher": "~0.1.0",
+		"karma-jasmine": "~0.1.3",
+		"karma-phantomjs-launcher": "~0.1.0",
+		"karma-coverage": "~0.1.4"<% } %><% if (e2eTest) { %>,
+		"karma-ng-scenario": "~0.1.0"<% } %><% if (e2eTest || unitTest) { %>,
+		"karma": "~0.10.4",
+		"grunt-karma": "~0.6.2"<% } %>
 	}
 }

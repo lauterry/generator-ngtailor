@@ -24,12 +24,12 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
         this.description = '';
         this.csslint = false;
         this.complexity = false;
-        this.test = false;
         this.revision = false;
         this.gitignore = false;
         this.i18n = false;
+		this.e2eTest = false;
+		this.unitTest = false;
         this.csspreprocessor = 'none';
-        this.tests = false;
         this.imagemin = false;
 		this.resourceModule = false;
 		this.cookieModule = false;
@@ -182,19 +182,10 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 					}]
                 },
                 {
-                    type: "confirm",
-                    name: "test",
-                    message: "Should I set up tests configuration ?",
-                    default: false
-                },
-                {
                     type: "checkbox",
                     name: "tests",
                     message: "Which tests should I set up ?",
-                    choices: [ "unit", "e2e" ],
-                    when: function (answers) {
-                        return answers.test === true;
-                    }
+					choices: [ "unit", "e2e" ]
                 },
                 {
                     type: "confirm",
@@ -246,6 +237,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 
 				this._handleModules(props.modules, props.thirdModules);
 				this._prepareGruntTasks();
+				this._setUpTests(props.tests);
 
                 done();
             }.bind(this));
@@ -260,11 +252,25 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		this.template('app/js/app.js', 'app/js/app.js');
 
 		if(hasOption(this.csspreprocessor, 'sass')){
-			this.template('app/scss/style.scss', 'app/scss/style.scss');
-			this.template('app/scss/app.scss', 'app/scss/app.scss');
+			this.copy('app/scss/style.scss', 'app/scss/style.scss');
+			this.copy('app/scss/app.scss', 'app/scss/app.scss');
 		} else if (hasOption(this.csspreprocessor, 'less')) {
-			this.template('app/less/style.less', 'app/less/style.less');
-			this.template('app/less/app.less', 'app/less/app.less');
+			this.copy('app/less/style.less', 'app/less/style.less');
+			this.copy('app/less/app.less', 'app/less/app.less');
+		}
+
+		if(this.unitTest){
+			this.template('test/conf/_unit-test-conf.js', 'test/conf/unit-test-conf.js');
+			this.template('test/unit/appSpec.js', 'test/unit/appSpec.js');
+		}
+
+		if(this.e2eTest){
+			this.copy('test/conf/e2e-test-conf.js', 'test/conf/e2e-test-conf.js');
+			this.template('test/e2e/scenarios.js', 'test/e2e/scenarios.js');
+		}
+
+		if(this.unitTest || this.e2eTest){
+			this.copy('test/.jshintrc', 'test/.jshintrc');
 		}
 
         this.template('_package.json', 'package.json');
@@ -349,6 +355,11 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 			this.angularDeps = '\n    ' + angMods.join(',\n    ') + '\n';
 			this.angularProviders = angProviders.join(', ');
 		}
+	},
+
+	_setUpTests : function(tests) {
+		this.e2eTest = hasOption(tests, 'e2e');
+		this.unitTest = hasOption(tests, 'unit');
 	},
 
 	_prepareGruntTasks : function() {
