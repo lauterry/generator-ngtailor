@@ -175,14 +175,14 @@ describe('advanced custom test', function () {
 			assert.fileContent('Gruntfile.js', /plato/);
 			assert.fileContent('Gruntfile.js', /less/);
 			assert.fileContent('Gruntfile.js', /imagemin/);
+			assert.fileContent('Gruntfile.js', /karma/);
 
-			assert.noFileContent('Gruntfile.js', /karma/);
 			assert.noFileContent('Gruntfile.js', /sass/);
 
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('report', \['plato', 'connect:plato'\]\)/);
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('dev', \['less', 'browserSync', 'watch'\]\)/);
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('dev', \['less', 'browserSync', 'karma:dev_unit:start', 'watch'\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'less', 'cssmin', 'rev', 'imagemin', 'usemin'\]\)/);
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \['package', 'plato'\]\)/);
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \['package', 'connect:test', 'karma:dist_unit:start', 'karma:e2e', 'plato'\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ls', \['availabletasks'\]\)/);
 
 			done();

@@ -236,8 +236,8 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				this.thirdModules = props.thirdModules;
 
 				this._handleModules(props.modules, props.thirdModules);
-				this._prepareGruntTasks();
 				this._setUpTests(props.tests);
+				this._prepareGruntTasks();
 
                 done();
             }.bind(this));
@@ -370,7 +370,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 
 
 		/*****************
-		 *  Package Task *
+		 *  package Task *
 		 *****************/
 		packageTasks.push("'jshint'");
 		packageTasks.push("'clean'");
@@ -402,6 +402,19 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		 *    ci Task    *
 		 *****************/
 		ciTasks.push("'package'");
+
+		if(this.unitTest || this.e2eTest) {
+			ciTasks.push("'connect:test'");
+		}
+
+		if(this.unitTest) {
+			ciTasks.push("'karma:dist_unit:start'");
+		}
+
+		if(this.e2eTest) {
+			ciTasks.push("'karma:e2e'");
+		}
+
 		if(this.complexity) {
 			ciTasks.push("'plato'");
 		}
@@ -420,6 +433,11 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 			devTasks.push("'less'");
 		}
 		devTasks.push("'browserSync'");
+
+		if(this.unitTest) {
+			devTasks.push("'karma:dev_unit:start'");
+		}
+
 		devTasks.push("'watch'");
 
 		if (devTasks.length) {

@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                     descriptions: {
                         'dev' : 'Launch the static server and watch tasks',
                         'package' : 'Package your web app for distribution',
-                        'ci' : 'Run unit & e2e tests, package your webapp and generate reports. Use this task for Continuous Integration'<% if (complexity) { %>,git
+                        'ci' : 'Run unit & e2e tests, package your webapp and generate reports. Use this task for Continuous Integration'<% if (complexity) { %>,
 						'report' : 'Open Plato reports in your browser'<% } %>
                     },
                     tasks: ['dev', 'package', 'ci'<% if (complexity) { %>, 'report'<% } %>]
@@ -179,15 +179,44 @@ module.exports = function(grunt) {
 					dest: '<%%= distDir %>/'
 				}]
 			}
+		},<% } %><% if (unitTest || e2eTest) { %>
+		karma: {<% if (unitTest) { %>
+			dev_unit: {
+				options: {
+					configFile: 'test/conf/unit-test-conf.js',
+					background: true,  // The background option will tell grunt to run karma in a child process so it doesn't block subsequent grunt tasks.
+					singleRun: false,
+					autoWatch: true,
+					reporters: ['progress']
+				}
+			},
+			dist_unit: {
+				options: {
+					configFile: 'test/conf/unit-test-conf.js',
+					background: false,
+					singleRun: true,
+					autoWatch: false,
+					reporters: ['progress', 'coverage'],
+					coverageReporter : {
+						type : 'html',
+						dir : '../reports/coverage'
+					}
+				}
+			}<% } %><% if (e2eTest) { %>,
+			e2e: {
+				options: {
+					configFile: 'test/conf/e2e-test-conf.js'
+				}
+			}<% } %>
 		},<% } %>
         connect: {
             test : {
                 options: {
                     port: 8887,
-                        base: '<%%= assetsDir %>',
-                        keepalive: false,
-                        livereload: false,
-                        open: false
+					base: '<%%= assetsDir %>',
+					keepalive: false,
+					livereload: false,
+					open: false
                 }
             }
         }
@@ -197,6 +226,8 @@ module.exports = function(grunt) {
     grunt.registerTask('package', [<%= packageGruntTasks %>]);
     grunt.registerTask('ci', [<%= ciGruntTasks %>]);
     grunt.registerTask('ls', ['availabletasks']);<% if (complexity) { %>
-    grunt.registerTask('report', ['plato', 'connect:plato']);<% } %>
+    grunt.registerTask('report', ['plato', 'connect:plato']);<% } %><% if (e2eTest) { %>
+    grunt.registerTask('test:e2e', ['connect:test', 'karma:e2e']);<% } %><% if (unitTest) { %>
+    grunt.registerTask('test:unit', ['karma:dist_unit:start']);<% } %>
 
 };
