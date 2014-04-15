@@ -1,3 +1,8 @@
+## 2.0.1 (April 15, 2014)
+
+Bug fixes:
+  - files beginning with dot (.) are not fetched when installing from npm
+
 ## 2.0.0 (April 15, 2014)
 
 Features
