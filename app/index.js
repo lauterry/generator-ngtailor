@@ -103,7 +103,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 
 			this.mode = props.mode;
 
-			if(this.mode === "fast") {
+			if(this.mode === "Fast") {
 				this._prepareGruntTasks();
 			}
 

@@ -21,7 +21,7 @@ describe('fast', function () {
 		}.bind(this));
 
 		prompts = {
-			'mode': 'fast'
+			'mode': 'Fast'
 		}
 	});
 
