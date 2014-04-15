@@ -29,7 +29,7 @@ module.exports = function (config) {
                 'vendor/angular-snap/angular-snap.js'<% } %><% if (bindonceModule) { %>,
                 'vendor/angular-bindonce/bindonce.js'<% } %>,
                 'vendor/angular-mocks/angular-mocks.js',
-                'js/*.js',
+                'js/**/*.js',
                 '../test/unit/**/*.js'
             ],
 

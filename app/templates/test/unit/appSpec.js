@@ -1,8 +1,8 @@
-describe("{%= title %} application", function () {
+describe("<%= name %> application", function () {
 
     var scope;
 
-    beforeEach(module('{%= name %}'));
+    beforeEach(module('<%= name %>'));
 
     // Loads the controllers
     beforeEach(inject(function ($controller, $rootScope) {
