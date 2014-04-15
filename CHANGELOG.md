@@ -1,4 +1,9 @@
-## 1.3.0 (???, 2014)
+## 2.0.0 (April 15, 2014)
+
+Features
+  - ngTailor becomes a yeoman generator
+
+## 1.3.0 (March, 2014)
 
 Features
   - Display available grunt tasks with `grunt ls`
