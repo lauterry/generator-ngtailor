@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>ngTailor by lauterry</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>ngTailor</h1>
+        <h2>Offers you a tailor-made workflow for your Angularjs Web App</h2>
+        <a href="https://github.com/lauterry/generator-ngtailor" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><a href="https://travis-ci.org/lauterry/generator-ngtailor"><img src="https://secure.travis-ci.org/lauterry/generator-ngtailor.png?branch=master" alt="Build Status"></a></p>
+
+<h2>
+<a name="why-is-ngtailor-interesting-" class="anchor" href="#why-is-ngtailor-interesting-"><span class="octicon octicon-link"></span></a>Why is ngTailor interesting ?</h2>
+
+<p>You love Angularjs, Grunt, Bower and Yeoman ? You might be interested by ngTailor.
+ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower configurations and prepare for you revelant Grunt tasks you needs.</p>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Let you choose the Angularjs modules you need.</li>
+<li>Your assets dependencies are managed by <a href="http://www.bower.io">bower</a>
+</li>
+<li>Run <a href="https://twitter.com/briantford">Brian Ford</a> <a href="https://github.com/btford/ngmin">ng-min</a> before your minification</li>
+<li>Replace your scripts and stylesheets declaration with the minified version when packaging your app for production thanks to <a href="Yeoman">http://yeoman.io/</a> <a href="https://github.com/yeoman/grunt-usemin">grunt-usemin</a>
+</li>
+<li>Watch for you assets changes and automatically run <code>jshint</code> or <code>csslint</code> on your code and even unit tests.</li>
+<li>Livereload is out of the box. No F5 anymore</li>
+<li>Automatically output a hash in your assets file name for caching purpose.</li>
+<li>Set up unit and e2e tests with Karma and Jasmine and generate test coverage report.</li>
+<li>Automatically run <code>npm install &amp;&amp; bower install &amp;&amp; grunt bower-install</code> to download your project dependencies and import them in your index.html</li>
+<li>Compile you SASS | LESS files</li>
+<li>Visualize Javascript source complexity with <a href="https://github.com/es-analysis/plato">plato</a>. (<a href="http://es-analysis.github.io/plato/examples/grunt/">See an example of a plato report</a>)</li>
+<li>Optimize your images (png, jpeg, gif)</li>
+<li>Keep multiple browsers devices in sync using <a href="https://github.com/shakyShane/browser-sync">grunt-browser-sync</a>
+</li>
+</ul><h2>
+<a name="ngtailor-vs-yeoman-generator-angular-" class="anchor" href="#ngtailor-vs-yeoman-generator-angular-"><span class="octicon octicon-link"></span></a>ngTailor vs Yeoman generator-angular ?</h2>
+
+<p>Both aim to provide you a collection of tools and best practices to improve your productivity as a modern front end developer.
+Yeoman generator-angular is great but in my opinion, it provides a bloated solution to manage and build angularjs applications.
+ngTailor let you choose in a much more fine-grained way, each tools or components you want to be included in your application and workflow.
+Note that ngTailor do not provide generator for directives, controllers etc like yeoman and generator-angular do.</p>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<h3>
+<a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h3>
+
+<ol>
+<li>Install <a href="http://www.nodejs.org">node and npm</a>
+</li>
+<li>Install <strong>yeoman</strong> running <code>npm install -g yo</code>
+</li>
+<li>If you are using npm below 1.2.10, run <code>npm install -g grunt-cli bower</code> to install <strong>bower</strong> and <strong>grunt</strong>
+</li>
+<li>Install generator-ngtailor from npm running <code>npm install -g generator-ngtailor</code>
+</li>
+</ol><h3>
+<a name="generate-your-angular-project" class="anchor" href="#generate-your-angular-project"><span class="octicon octicon-link"></span></a>Generate your Angular project</h3>
+
+<ol>
+<li>Create a new folder for your project</li>
+<li>Open a terminal and run <code>yo ngtailor</code> in your project folder</li>
+<li>Choose between "Fast mode" or "Advanced mode":
+
+<ul>
+<li>"Fast mode" : Generate an Angularjs project with the minimal options.</li>
+<li>"Advanced mode" : Let you customize your scaffolding and add more features. Just answer to the prompted questions.</li>
+</ul>
+</li>
+<li>ngTailor will generate your Angularjs application and download all the dependencies by running <code>npm install &amp;&amp; bower install</code>
+To check that everything is ok :</li>
+<li>Run <code>grunt dev</code> to serve your static assets</li>
+<li>Your should see "Yeahhh ! You're ready !" displayed in your browser</li>
+<li>Voilà ! Your Angular project is ready ! Next step is to discover the workflow ngtailor offers to you.</li>
+</ol><h2>
+<a name="workflow" class="anchor" href="#workflow"><span class="octicon octicon-link"></span></a>Workflow</h2>
+
+<h3>
+<a name="development" class="anchor" href="#development"><span class="octicon octicon-link"></span></a>Development</h3>
+
+<ul>
+<li>Run <code>grunt dev</code> to start a static web server and open your browser.</li>
+<li>Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.</li>
+<li>
+<code>jshint</code> and/or <code>csslint</code> will be run on your files when they change.</li>
+<li>If you choose to have unit tests, they will be run as your test and source files change.</li>
+</ul><h3>
+<a name="package-for-production" class="anchor" href="#package-for-production"><span class="octicon octicon-link"></span></a>Package for Production</h3>
+
+<ul>
+<li>Run <code>grunt package</code> to package your static assets for production.</li>
+<li>Your package will be generated in a <code>dist</code> folder and your javascripts and stylesheets will be concatenated, minified and versionned.</li>
+</ul><h3>
+<a name="available-grunt-tasks" class="anchor" href="#available-grunt-tasks"><span class="octicon octicon-link"></span></a>Available Grunt tasks</h3>
+
+<ul>
+<li>
+<code>grunt ls</code> : list and describe the available grunt tasks of your project.</li>
+<li>
+<code>grunt test:unit</code> : run karma unit tests and show test coverage in console.</li>
+<li>
+<code>grunt test:e2e</code> : run karma e2e tests</li>
+<li>
+<code>grunt report</code> : open complexity report in your browser</li>
+<li>
+<code>grunt ci</code>: launch <code>grunt package</code>, run unit tests and e2e test and generate complexity report. Use this task for continuous integration.</li>
+</ul><h2>
+<a name="update-ngtailor" class="anchor" href="#update-ngtailor"><span class="octicon octicon-link"></span></a>Update ngTailor</h2>
+
+<ul>
+<li><code>npm update -g generator-ngtailor</code></li>
+</ul><h2>
+<a name="getting-to-know-yeoman" class="anchor" href="#getting-to-know-yeoman"><span class="octicon octicon-link"></span></a>Getting To Know Yeoman</h2>
+
+<p>Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.</p>
+
+<p>If you'd like to get to know Yeoman better and meet some of his friends, <a href="http://gruntjs.com">Grunt</a> and <a href="http://bower.io">Bower</a>, check out the complete <a href="https://github.com/yeoman/yeoman/wiki/Getting-Started">Getting Started Guide</a>.</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>MIT</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/lauterry/generator-ngtailor/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/lauterry/generator-ngtailor/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/lauterry/generator-ngtailor"></a> is maintained by <a href="https://github.com/lauterry">lauterry</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
