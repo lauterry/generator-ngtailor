@@ -35,6 +35,7 @@
         "underscore.string": "~2.3.3"
     },
     "devDependencies": {
+		"grunt": "~0.4.1",
         "mocha": "*"
     },
     "peerDependencies": {
