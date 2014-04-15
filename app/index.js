@@ -14,6 +14,23 @@ var hasOption = function (options, option) {
 	}
 };
 
+var notes =
+	'You can invoke ngTailor in 2 modes :' +
+	'\n\n' +
+	'° Fast mode : Generate you an angularjs project with the minimal options.' +
+	'\n' +
+	'° Advanced mode : Let you customize your scaffolding and add more features.' +
+	'\n';
+
+var final = '\n\nYour angular project has been successfully generated.' +
+	'\nngTailor has prepared some revelant grunt tasks for you.' +
+	'\nRun "grunt ls" to display them in your console.' +
+	'\n\n',
+	final2 = 'For more information about ngTailor and its grunt tasks, please see ' +
+	'\n' +
+	'https://github.com/lauterry/ngTailor/blob/master/README.md' +
+	'\n\n';
+
 var NgtailorGenerator = yeoman.generators.Base.extend({
 
     init: function () {
@@ -69,10 +86,9 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
         // have Yeoman greet the user
         this.log(this.yeoman);
 
-        // replace it with a short and sweet description of your generator
-        this.log(chalk.magenta('You\'re using the fantastic ngTailor generator.'));
-
         this.log(chalk.magenta('ngTailor scaffold out an AngularJS application, writing your Grunt and Bower configurations with everything you need'));
+
+		this.log(chalk.cyan(notes));
 
         var prompts = [
             {
@@ -462,7 +478,8 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		if(err){
 			this.log.error(err);
 		} else {
-			this.log(chalk.green('OK'));
+			this.log(chalk.green(final));
+			this.log(chalk.blue(final2));
 		}
 	}
 });
