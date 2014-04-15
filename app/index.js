@@ -297,12 +297,12 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
     },
 
     configFiles: function () {
-        this.copy('.editorconfig', '.editorconfig');
-        this.copy('.jshintrc', '.jshintrc');
-		this.copy('.bowerrc', '.bowerrc');
-		this.copy('.gitignore', '.gitignore');
+        this.copy('editorconfig', '.editorconfig');
+        this.copy('jshintrc', '.jshintrc');
+		this.copy('bowerrc', '.bowerrc');
+		this.copy('gitignore', '.gitignore');
 		if(this.csslint) {
-			this.copy('.csslintrc', '.csslintrc');
+			this.copy('csslintrc', '.csslintrc');
 		}
     },
 
