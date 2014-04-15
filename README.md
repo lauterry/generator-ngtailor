@@ -43,7 +43,8 @@ Note that ngTailor do not provide generator for directives, controllers etc like
 ### Prerequisites
 1. Install [node and npm](http://www.nodejs.org)
 2. Install **yeoman** running `npm install -g yo`
-3. Install generator-ngtailor from npm running `npm install -g generator-ngtailor`
+3. If you are using npm below 1.2.10, run `npm install -g grunt-cli bower` to install **bower** and **grunt**
+4. Install generator-ngtailor from npm running `npm install -g generator-ngtailor`
 
 ### Generate your Angular project
 1. Create a new folder for your project
