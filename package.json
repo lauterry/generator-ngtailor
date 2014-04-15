@@ -25,7 +25,8 @@
 		"grunt",
 		"angular",
 		"scaffold",
-		"yeoman"
+		"yeoman",
+		"generator-ngtailor"
     ],
     "dependencies": {
         "yeoman-generator": "~0.16.0",

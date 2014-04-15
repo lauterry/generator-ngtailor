@@ -28,7 +28,7 @@ var final = '\n\nYour angular project has been successfully generated.' +
 	'\n\n',
 	final2 = 'For more information about ngTailor and its grunt tasks, please see ' +
 	'\n' +
-	'https://github.com/lauterry/ngTailor/blob/master/README.md' +
+	'https://github.com/lauterry/generator-ngtailor/blob/master/README.md' +
 	'\n\n';
 
 var NgtailorGenerator = yeoman.generators.Base.extend({
