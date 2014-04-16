@@ -465,7 +465,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 	},
 
 	_gruntBowerInstall : function () {
-		this.spawnCommand('grunt', ['bower-install'])
+		this.spawnCommand('grunt', ['bowerInstall'])
 			.on('error', this._finalize)
 			.on('exit', function (err) {
 				if (err === 127) {

@@ -29,7 +29,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        'bower-install': {
+		bowerInstall: {
             target: {
                 src: '<%%= assetsDir %>/index.html',
                 ignorePath: '<%%= assetsDir %>/',
