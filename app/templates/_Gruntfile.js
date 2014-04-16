@@ -202,7 +202,7 @@ module.exports = function(grunt) {
 						dir : '../reports/coverage'
 					}
 				}
-			}<% } %><% if (e2eTest) { %>,
+			},<% } %><% if (e2eTest) { %>
 			e2e: {
 				options: {
 					configFile: 'test/conf/e2e-test-conf.js'
