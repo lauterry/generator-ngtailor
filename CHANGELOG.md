@@ -1,3 +1,11 @@
+## 2.0.2 (April 16, 2014)
+
+Enhancements:
+  - Upgrade grunt-bower-install to 1.4.0
+
+Bug fixes:
+  - Cannot run grunt-bower-install after dependencies installation
+
 ## 2.0.1 (April 15, 2014)
 
 Bug fixes:
