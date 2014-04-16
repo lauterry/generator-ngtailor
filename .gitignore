@@ -3,3 +3,4 @@ temp/
 .DS_Store
 .idea/
 test/temp/
+npm-debug.log

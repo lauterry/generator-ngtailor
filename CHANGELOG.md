@@ -1,3 +1,9 @@
+## 2.0.3 (April 16, 2014)
+
+Enhancements:
+  - Update gitignore
+  - upgrade package version to publish to npm registry
+
 ## 2.0.2 (April 16, 2014)
 
 Enhancements:
