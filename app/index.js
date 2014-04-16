@@ -71,7 +71,9 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
         this.on('end', function () {
             if (!this.options['skip-install']) {
                 this.installDependencies({
-					callback : this._gruntBowerInstall.call(this)
+					callback : function() {
+						this._gruntBowerInstall.call(this)
+					}.bind(this)
 				});
             }
         });
