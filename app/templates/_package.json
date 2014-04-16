@@ -2,6 +2,7 @@
 	"name": "<%=  _.slugify(_.humanize(name))  %>",
 	"version": "<%= version %>",
 	"devDependencies": {
+		"grunt": "~0.4.1",
 		"grunt-usemin": "~2.0.0",
 		"grunt-ngmin": "0.0.3",
 		"grunt-contrib-clean": "~0.5.0",
