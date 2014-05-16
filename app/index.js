@@ -1,10 +1,11 @@
 'use strict';
-var util = require('util');
+var fs = require('fs');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var semver = require("semver");
 var currentWorkingDirectory = path.basename(process.cwd());
+var wiredep = require('wiredep');
 
 var hasOption = function (options, option) {
 	if(options){
@@ -70,7 +71,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 
         this.on('end', function () {
             if (!this.options['skip-install']) {
-                this.installDependencies({
+				this.installDependencies({
 					callback : function() {
 						this._gruntBowerInstall.call(this)
 					}.bind(this)
@@ -465,15 +466,19 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 	},
 
 	_gruntBowerInstall : function () {
-		this.spawnCommand('grunt', ['bowerInstall'])
-			.on('error', this._finalize)
-			.on('exit', function (err) {
-				if (err === 127) {
-					this.log.error('Could not find Grunt. Please install with ' +
-						'`npm install -g Grunt`.');
+		wiredep({
+			directory: 'app/vendor',
+			bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
+			ignorePath: 'app/',
+			src: 'app/index.html',
+			fileTypes: {
+				html: {
+					replace: {
+						css: '<link rel="stylesheet" href="{{filePath}}">'
+					}
 				}
-				this._finalize(err);
-			}.bind(this));
+			}
+		});
 	},
 
 	_finalize : function (err) {

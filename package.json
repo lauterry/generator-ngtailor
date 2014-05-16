@@ -29,6 +29,7 @@
 		"generator-ngtailor"
     ],
     "dependencies": {
+		"wiredep": "~1.6.0",
         "yeoman-generator": "~0.16.0",
         "chalk": "~0.4.0",
         "semver": "~2.2.1",
