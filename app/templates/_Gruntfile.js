@@ -121,7 +121,15 @@ module.exports = function(grunt) {
             },
             css: {
                 files: ['<%%= assetsDir %>/css/**/*.css']
-            }
+            }<% if (csspreprocessor === 'sass') { %>,
+			scss: {
+				files : ['<%= assetsDir %>/scss/**/*.scss'],
+				tasks: ['sass:all']
+			}<% } %><% if (csspreprocessor === 'less') { %>,
+				scss: {
+				files : ['<%= assetsDir %>/less/**/*.less'],
+				tasks: ['less:all']
+			}<% } %>
         },<% if (csspreprocessor === 'less') { %>
 		less: {
 			options: {
