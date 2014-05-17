@@ -29,7 +29,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-		bowerInstall: {
+		wiredep: {
             target: {
                 src: '<%%= assetsDir %>/index.html',
                 ignorePath: '<%%= assetsDir %>/',
