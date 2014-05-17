@@ -1,3 +1,20 @@
+## 2.0.4 (May 17, 2014)
+
+Enhancements:
+
+  - Add csslint in watch task
+  - Add unit test in watch task
+  - Add less and sass compilation in watch task
+  - Update BrowserSync to 0.9.1
+  - Update grunt-bower-install (depreciated) to grunt-wiredep
+
+## 2.0.3 (April 16, 2014)
+
+Enhancements:
+
+  - Update gitignore
+  - Upgrade package version to publish to npm registry
+
 ## 2.0.2 (April 16, 2014)
 
 Enhancements:
