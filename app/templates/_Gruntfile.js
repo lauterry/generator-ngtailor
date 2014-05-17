@@ -227,7 +227,15 @@ module.exports = function(grunt) {
 					livereload: false,
 					open: false
                 }
-            }
+            }{% if (complexity) { %},
+			plato : {
+				options: {
+					port: 8889,
+					base: 'reports/complexity',
+					keepalive: true,
+					open: true
+				}
+			}{% } %}
         }
     });
 
