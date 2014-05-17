@@ -227,7 +227,7 @@ module.exports = function(grunt) {
 					livereload: false,
 					open: false
                 }
-            }{% if (complexity) { %},
+            }<% if (complexity) { %>,
 			plato : {
 				options: {
 					port: 8889,
@@ -235,7 +235,7 @@ module.exports = function(grunt) {
 					keepalive: true,
 					open: true
 				}
-			}{% } %}
+			}<% } %>
         }
     });
 
