@@ -137,7 +137,7 @@ describe('advanced custom test', function () {
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
 			assert.fileContent('bower.json', /"angular": "2\.0\.0"/);
-			assert.noFileContent('bower.json', /angular-mocks: "2\.0\.0"/);
+			assert.fileContent('bower.json', /"angular-mocks": "2\.0\.0"/);
 			assert.noFileContent('bower.json', /"angular-i18n": "2\.0\.0"/);
 			assert.noFileContent('bower.json', /angular-touch: "2\.0\.0"/);
 			assert.noFileContent('bower.json', /angular-sanitize: "2\.0\.0"/);
