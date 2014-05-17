@@ -120,7 +120,8 @@ module.exports = function(grunt) {
                 files: ['<%%= assetsDir %>/**/*.html']
             },
             css: {
-                files: ['<%%= assetsDir %>/css/**/*.css']
+                files: ['<%%= assetsDir %>/css/**/*.css']<% if (csslint) { %>,
+				tasks: ['csslint']<% } %>
             }<% if (csspreprocessor === 'sass') { %>,
 			scss: {
 				files : ['<%%= assetsDir %>/scss/**/*.scss'],
