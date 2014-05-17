@@ -139,7 +139,7 @@ describe('fast', function () {
 		this.app.options['skip-install'] = true;
 		this.app.run({}, function () {
 			assert.fileContent('Gruntfile.js', /availabletasks/);
-			assert.fileContent('Gruntfile.js', /bowerInstall/);
+			assert.fileContent('Gruntfile.js', /wiredep/);
 			assert.fileContent('Gruntfile.js', /clean/);
 			assert.fileContent('Gruntfile.js', /copy/);
 			assert.fileContent('Gruntfile.js', /ngmin/);
