@@ -114,7 +114,7 @@ module.exports = function(grunt) {
             },
             js: {
                 files: ['<%%= assetsDir %>/js/**/*.js'],
-                tasks: ['newer:jshint']
+                tasks: ['newer:jshint'<% if (unitTest) { %>, 'karma:dev_unit:run' <% } %>]
             },
             html : {
                 files: ['<%%= assetsDir %>/**/*.html']
