@@ -6,6 +6,7 @@ var chalk = require('chalk');
 var semver = require("semver");
 var currentWorkingDirectory = path.basename(process.cwd());
 var wiredep = require('wiredep');
+var yosay = require('yosay');
 
 var hasOption = function (options, option) {
 	if(options){
@@ -87,7 +88,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
         var done = this.async();
 
         // have Yeoman greet the user
-        this.log(this.yeoman);
+		this.log(yosay('Hello ! let me introduce you to my friend ngTailor.'));
 
         this.log(chalk.magenta('ngTailor scaffold out an AngularJS application, writing your Grunt and Bower configurations with everything you need'));
 
