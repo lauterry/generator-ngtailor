@@ -182,10 +182,10 @@ describe('advanced custom official module', function () {
 			assert.noFileContent('Gruntfile.js', /karma/);
 			assert.noFileContent('Gruntfile.js', /sass/);
 
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('report', \['plato', 'connect:plato'\]\)/);
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('dev', \['less', 'browserSync', 'watch'\]\)/);
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'less', 'cssmin', 'rev', 'imagemin', 'usemin'\]\)/);
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \['package', 'plato'\]\)/);
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('report', \[\s+'plato',\s+'connect:plato'\s+\]\)/);
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('dev', \[\s+'less',\s+'browserSync',\s+'watch'\s+\]\)/);
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \[\s+'jshint',\s+'clean',\s+'useminPrepare',\s+'copy',\s+'concat',\s+'ngmin',\s+'uglify',\s+'less',\s+'cssmin',\s+'rev',\s+'imagemin',\s+'usemin'\s+\]\)/);
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \[\s+'package',\s+'plato'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ls', \['availabletasks'\]\)/);
 
 			done();

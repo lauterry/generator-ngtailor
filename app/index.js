@@ -7,6 +7,7 @@ var semver = require("semver");
 var currentWorkingDirectory = path.basename(process.cwd());
 var wiredep = require('wiredep');
 var yosay = require('yosay');
+var GruntfileEditor = require('gruntfile-editor');
 
 var hasOption = function (options, option) {
 	if(options){
@@ -74,7 +75,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
             if (!this.options['skip-install']) {
 				this.installDependencies({
 					callback : function() {
-						this._gruntBowerInstall.call(this)
+						this._gruntBowerInstall.call(this);
 					}.bind(this)
 				});
             }
@@ -108,7 +109,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 			this.mode = props.mode;
 
 			if(this.mode === "Fast") {
-				this._prepareGruntTasks();
+				this._generateGruntfile(props);
 			}
 
             done();
@@ -257,7 +258,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 
 				this._handleModules(props.modules, props.thirdModules);
 				this._setUpTests(props.tests);
-				this._prepareGruntTasks();
+				this._generateGruntfile(props);
 
                 done();
             }.bind(this));
@@ -295,7 +296,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 
         this.template('_package.json', 'package.json');
 		this.template('_bower.json', 'bower.json');
-		this.template('_Gruntfile.js', 'Gruntfile.js');
+		//this.template('_Gruntfile.js', 'Gruntfile.js');
 		this.template('_README.md', 'README.md');
 
     },
@@ -314,6 +315,156 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 	/***************
 	 *   private   *
 	 ***************/
+
+	_generateGruntfile : function (props) {
+		var gruntFileContent = this.src.read('Gruntfile.js');
+
+		this.env.gruntfile = new GruntfileEditor(gruntFileContent);
+
+		if (props.csslint) {
+			this.gruntfile.insertConfig('csslint', "{ options: { csslintrc: '.csslintrc' }, all : { src : ['<%%= assetsDir %>/css/**/*.css']}}");
+			this.gruntfile.insertConfig('watch', "{css: {files: ['<%%= assetsDir %>/css/**/*.css'],tasks: ['csslint']}}");
+		}
+
+		if (props.csspreprocessor === 'less') {
+			this.gruntfile.insertConfig('less', "{options: {paths: ['<%%= assetsDir %>/less']},all: {files: {'<%%= assetsDir %>/css/app.css': '<%%= assetsDir %>/less/app.less'}}}");
+			this.gruntfile.insertConfig('watch', "{less: {files : ['<%%= assetsDir %>/less/**/*.less'],tasks: ['less:all']}}");
+		}
+
+		if (props.csspreprocessor === 'sass') {
+			this.gruntfile.insertConfig('sass', "{options : {style : 'expanded',trace : true},all: {files: {'<%%= assetsDir %>/css/app.css': '<%%= assetsDir %>/scss/app.scss'}}}");
+			this.gruntfile.insertConfig('watch', "{scss: {files : ['<%%= assetsDir %>/scss/**/*.scss'],tasks: ['sass:all']}}");
+		}
+
+		if (props.revision) {
+			this.gruntfile.insertConfig('rev', "{dist: {files: {src: ['<%%= distDir %>/js/{,*/}*.js','<%%= distDir %>/css/{,*/}*.css']}}}");
+		}
+
+		if (props.complexity) {
+			this.gruntfile.insertConfig('plato', "{options: {jshint : grunt.file.readJSON('.jshintrc'),title : '<%%= name %>'},all : {files: {'reports/complexity': ['<%%= assetsDir %>/js/**/*.js']}}}");
+			this.gruntfile.insertConfig('connect', "{plato : {options: {port: 8889,base: 'reports/complexity',keepalive: true,open: true}}}");
+		}
+
+		if (props.imagemin) {
+			this.gruntfile.insertConfig('imagemin', "{dist : {options : {optimizationLevel: 7,progressive : false,interlaced : true},files: [{expand: true,cwd: '<%%= assetsDir %>/',src: ['**/*.{png,jpg,gif}'],dest: '<%%= distDir %>/'}]}}");
+		}
+
+		if (props.unitTest) {
+			this.gruntfile.insertConfig('karma' , "{dev_unit: {options: {configFile: 'test/conf/unit-test-conf.js',background: true, singleRun: false,autoWatch: true,reporters: ['progress']}},dist_unit: {options: {configFile: 'test/conf/unit-test-conf.js',background: false,singleRun: true,autoWatch: false,reporters: ['progress', 'coverage'],coverageReporter : {type : 'html',dir : '../reports/coverage'}}}}");
+		}
+
+		if (props.e2eTest) {
+			this.gruntfile.insertConfig('karma', "{e2e: {options: {configFile: 'test/conf/e2e-test-conf.js'}}}");
+		}
+
+		this._prepareGruntTasks(props);
+
+	},
+
+	_prepareGruntTasks : function() {
+
+		var packageTasks = [],
+			ciTasks = [],
+			devTasks = [];
+
+
+		/*****************
+		 *  package Task *
+		 *****************/
+		packageTasks.push('jshint');
+		packageTasks.push('clean');
+		packageTasks.push('useminPrepare');
+		packageTasks.push('copy');
+		packageTasks.push('concat');
+		packageTasks.push('ngmin');
+		packageTasks.push('uglify');
+
+		if(hasOption(this.csspreprocessor, 'sass')) {
+			packageTasks.push('sass');
+		} else if (hasOption(this.csspreprocessor, 'less')) {
+			packageTasks.push('less');
+		}
+		packageTasks.push('cssmin');
+		if(this.revision) {
+			packageTasks.push('rev');
+		}
+		if(this.imagemin) {
+			packageTasks.push('imagemin');
+		}
+		packageTasks.push('usemin');
+
+		if (packageTasks.length) {
+			this.gruntfile.registerTask('package', packageTasks)
+		}
+
+		/*****************
+		 *    ci Task    *
+		 *****************/
+		ciTasks.push('package');
+
+		if(this.unitTest || this.e2eTest) {
+			ciTasks.push('connect:test');
+		}
+
+		if(this.unitTest) {
+			ciTasks.push('karma:dist_unit:start');
+		}
+
+		if(this.e2eTest) {
+			ciTasks.push('karma:e2e');
+		}
+
+		if(this.complexity) {
+			ciTasks.push('plato');
+		}
+
+		if (ciTasks.length) {
+			this.gruntfile.registerTask('ci', ciTasks)
+		}
+
+
+		/*****************
+		 *    dev Task   *
+		 *****************/
+		if(hasOption(this.csspreprocessor, 'sass')) {
+			devTasks.push('sass');
+		} else if (hasOption(this.csspreprocessor, 'less')) {
+			devTasks.push('less');
+		}
+		devTasks.push('browserSync');
+
+		if(this.unitTest) {
+			devTasks.push('karma:dev_unit:start');
+		}
+
+		devTasks.push('watch');
+
+		if (devTasks.length) {
+			this.gruntfile.registerTask('dev', devTasks);
+		}
+
+		/*****************
+		 *    report Task   *
+		 *****************/
+		if (this.complexity) {
+			this.gruntfile.registerTask('report', ['plato', 'connect:plato'])
+		}
+
+		/*****************
+		 *    e2eTest Task   *
+		 *****************/
+		if (this.e2eTest) {
+			this.gruntfile.registerTask('test:e2e', ['connect:test', 'karma:e2e'])
+		}
+
+		/*****************
+		 *    unitTest Task   *
+		 *****************/
+		if (this.unitTest) {
+			this.gruntfile.registerTask('test:unit', ['karma:dist_unit:start'])
+		}
+
+	},
 
    	_handleModules : function (modules, thirdModules) {
 		var angMods = [],
@@ -380,90 +531,6 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 	_setUpTests : function(tests) {
 		this.e2eTest = hasOption(tests, 'e2e');
 		this.unitTest = hasOption(tests, 'unit');
-	},
-
-	_prepareGruntTasks : function() {
-
-		var packageTasks = [],
-			ciTasks = [],
-			devTasks = [];
-
-
-		/*****************
-		 *  package Task *
-		 *****************/
-		packageTasks.push("'jshint'");
-		packageTasks.push("'clean'");
-		packageTasks.push("'useminPrepare'");
-		packageTasks.push("'copy'");
-		packageTasks.push("'concat'");
-		packageTasks.push("'ngmin'");
-		packageTasks.push("'uglify'");
-
-		if(hasOption(this.csspreprocessor, 'sass')) {
-			packageTasks.push("'sass'");
-		} else if (hasOption(this.csspreprocessor, 'less')) {
-			packageTasks.push("'less'");
-		}
-		packageTasks.push("'cssmin'");
-		if(this.revision) {
-			packageTasks.push("'rev'");
-		}
-		if(this.imagemin) {
-			packageTasks.push("'imagemin'");
-		}
-		packageTasks.push("'usemin'");
-
-		if (packageTasks.length) {
-			this.packageGruntTasks = packageTasks.join(', ');
-		}
-
-		/*****************
-		 *    ci Task    *
-		 *****************/
-		ciTasks.push("'package'");
-
-		if(this.unitTest || this.e2eTest) {
-			ciTasks.push("'connect:test'");
-		}
-
-		if(this.unitTest) {
-			ciTasks.push("'karma:dist_unit:start'");
-		}
-
-		if(this.e2eTest) {
-			ciTasks.push("'karma:e2e'");
-		}
-
-		if(this.complexity) {
-			ciTasks.push("'plato'");
-		}
-
-		if (ciTasks.length) {
-			this.ciGruntTasks = ciTasks.join(', ');
-		}
-
-
-		/*****************
-		 *    dev Task   *
-		 *****************/
-		if(hasOption(this.csspreprocessor, 'sass')) {
-			devTasks.push("'sass'");
-		} else if (hasOption(this.csspreprocessor, 'less')) {
-			devTasks.push("'less'");
-		}
-		devTasks.push("'browserSync'");
-
-		if(this.unitTest) {
-			devTasks.push("'karma:dev_unit:start'");
-		}
-
-		devTasks.push("'watch'");
-
-		if (devTasks.length) {
-			this.devGruntTasks = devTasks.join(', ');
-		}
-
 	},
 
 	_gruntBowerInstall : function () {
