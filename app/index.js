@@ -322,31 +322,31 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		this.env.gruntfile = new GruntfileEditor(gruntFileContent);
 
 		if (this.csslint) {
-			this.gruntfile.insertConfig('csslint', "{ options: { csslintrc: '.csslintrc' }, all : { src : ['<%%= assetsDir %>/css/**/*.css']}}");
-			this.gruntfile.insertConfig('watch', "{css: {files: ['<%%= assetsDir %>/css/**/*.css'],tasks: ['csslint']}}");
+			this.gruntfile.insertConfig('csslint', "{ options: { csslintrc: '.csslintrc' }, all : { src : ['<%= assetsDir %>/css/**/*.css']}}");
+			this.gruntfile.insertConfig('watch', "{css: {files: ['<%= assetsDir %>/css/**/*.css'],tasks: ['csslint']}}");
 		}
 
 		if (this.csspreprocessor === 'less') {
-			this.gruntfile.insertConfig('less', "{options: {paths: ['<%%= assetsDir %>/less']},all: {files: {'<%%= assetsDir %>/css/app.css': '<%%= assetsDir %>/less/app.less'}}}");
-			this.gruntfile.insertConfig('watch', "{less: {files : ['<%%= assetsDir %>/less/**/*.less'],tasks: ['less:all']}}");
+			this.gruntfile.insertConfig('less', "{options: {paths: ['<%= assetsDir %>/less']},all: {files: {'<%= assetsDir %>/css/app.css': '<%= assetsDir %>/less/app.less'}}}");
+			this.gruntfile.insertConfig('watch', "{less: {files : ['<%= assetsDir %>/less/**/*.less'],tasks: ['less:all']}}");
 		}
 
 		if (this.csspreprocessor === 'sass') {
-			this.gruntfile.insertConfig('sass', "{options : {style : 'expanded',trace : true},all: {files: {'<%%= assetsDir %>/css/app.css': '<%%= assetsDir %>/scss/app.scss'}}}");
-			this.gruntfile.insertConfig('watch', "{scss: {files : ['<%%= assetsDir %>/scss/**/*.scss'],tasks: ['sass:all']}}");
+			this.gruntfile.insertConfig('sass', "{options : {style : 'expanded',trace : true},all: {files: {'<%= assetsDir %>/css/app.css': '<%= assetsDir %>/scss/app.scss'}}}");
+			this.gruntfile.insertConfig('watch', "{scss: {files : ['<%= assetsDir %>/scss/**/*.scss'],tasks: ['sass:all']}}");
 		}
 
 		if (this.revision) {
-			this.gruntfile.insertConfig('rev', "{dist: {files: {src: ['<%%= distDir %>/js/{,*/}*.js','<%%= distDir %>/css/{,*/}*.css']}}}");
+			this.gruntfile.insertConfig('rev', "{dist: {files: {src: ['<%= distDir %>/js/{,*/}*.js','<%= distDir %>/css/{,*/}*.css']}}}");
 		}
 
 		if (this.complexity) {
-			this.gruntfile.insertConfig('plato', "{options: {jshint : grunt.file.readJSON('.jshintrc'),title : '<%%= name %>'},all : {files: {'reports/complexity': ['<%%= assetsDir %>/js/**/*.js']}}}");
+			this.gruntfile.insertConfig('plato', "{options: {jshint : grunt.file.readJSON('.jshintrc'),title : '<%= name %>'},all : {files: {'reports/complexity': ['<%= assetsDir %>/js/**/*.js']}}}");
 			this.gruntfile.insertConfig('connect', "{plato : {options: {port: 8889,base: 'reports/complexity',keepalive: true,open: true}}}");
 		}
 
 		if (this.imagemin) {
-			this.gruntfile.insertConfig('imagemin', "{dist : {options : {optimizationLevel: 7,progressive : false,interlaced : true},files: [{expand: true,cwd: '<%%= assetsDir %>/',src: ['**/*.{png,jpg,gif}'],dest: '<%%= distDir %>/'}]}}");
+			this.gruntfile.insertConfig('imagemin', "{dist : {options : {optimizationLevel: 7,progressive : false,interlaced : true},files: [{expand: true,cwd: '<%= assetsDir %>/',src: ['**/*.{png,jpg,gif}'],dest: '<%= distDir %>/'}]}}");
 		}
 
 		if (this.unitTest) {
