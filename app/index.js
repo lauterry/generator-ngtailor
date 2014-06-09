@@ -109,7 +109,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 			this.mode = props.mode;
 
 			if(this.mode === "Fast") {
-				this._generateGruntfile(props);
+				this._generateGruntfile();
 			}
 
             done();
@@ -258,7 +258,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 
 				this._handleModules(props.modules, props.thirdModules);
 				this._setUpTests(props.tests);
-				this._generateGruntfile(props);
+				this._generateGruntfile();
 
                 done();
             }.bind(this));
@@ -316,48 +316,48 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 	 *   private   *
 	 ***************/
 
-	_generateGruntfile : function (props) {
+	_generateGruntfile : function () {
 		var gruntFileContent = this.src.read('Gruntfile.js');
 
 		this.env.gruntfile = new GruntfileEditor(gruntFileContent);
 
-		if (props.csslint) {
+		if (this.csslint) {
 			this.gruntfile.insertConfig('csslint', "{ options: { csslintrc: '.csslintrc' }, all : { src : ['<%%= assetsDir %>/css/**/*.css']}}");
 			this.gruntfile.insertConfig('watch', "{css: {files: ['<%%= assetsDir %>/css/**/*.css'],tasks: ['csslint']}}");
 		}
 
-		if (props.csspreprocessor === 'less') {
+		if (this.csspreprocessor === 'less') {
 			this.gruntfile.insertConfig('less', "{options: {paths: ['<%%= assetsDir %>/less']},all: {files: {'<%%= assetsDir %>/css/app.css': '<%%= assetsDir %>/less/app.less'}}}");
 			this.gruntfile.insertConfig('watch', "{less: {files : ['<%%= assetsDir %>/less/**/*.less'],tasks: ['less:all']}}");
 		}
 
-		if (props.csspreprocessor === 'sass') {
+		if (this.csspreprocessor === 'sass') {
 			this.gruntfile.insertConfig('sass', "{options : {style : 'expanded',trace : true},all: {files: {'<%%= assetsDir %>/css/app.css': '<%%= assetsDir %>/scss/app.scss'}}}");
 			this.gruntfile.insertConfig('watch', "{scss: {files : ['<%%= assetsDir %>/scss/**/*.scss'],tasks: ['sass:all']}}");
 		}
 
-		if (props.revision) {
+		if (this.revision) {
 			this.gruntfile.insertConfig('rev', "{dist: {files: {src: ['<%%= distDir %>/js/{,*/}*.js','<%%= distDir %>/css/{,*/}*.css']}}}");
 		}
 
-		if (props.complexity) {
+		if (this.complexity) {
 			this.gruntfile.insertConfig('plato', "{options: {jshint : grunt.file.readJSON('.jshintrc'),title : '<%%= name %>'},all : {files: {'reports/complexity': ['<%%= assetsDir %>/js/**/*.js']}}}");
 			this.gruntfile.insertConfig('connect', "{plato : {options: {port: 8889,base: 'reports/complexity',keepalive: true,open: true}}}");
 		}
 
-		if (props.imagemin) {
+		if (this.imagemin) {
 			this.gruntfile.insertConfig('imagemin', "{dist : {options : {optimizationLevel: 7,progressive : false,interlaced : true},files: [{expand: true,cwd: '<%%= assetsDir %>/',src: ['**/*.{png,jpg,gif}'],dest: '<%%= distDir %>/'}]}}");
 		}
 
-		if (props.unitTest) {
+		if (this.unitTest) {
 			this.gruntfile.insertConfig('karma' , "{dev_unit: {options: {configFile: 'test/conf/unit-test-conf.js',background: true, singleRun: false,autoWatch: true,reporters: ['progress']}},dist_unit: {options: {configFile: 'test/conf/unit-test-conf.js',background: false,singleRun: true,autoWatch: false,reporters: ['progress', 'coverage'],coverageReporter : {type : 'html',dir : '../reports/coverage'}}}}");
 		}
 
-		if (props.e2eTest) {
+		if (this.e2eTest) {
 			this.gruntfile.insertConfig('karma', "{e2e: {options: {configFile: 'test/conf/e2e-test-conf.js'}}}");
 		}
 
-		this._prepareGruntTasks(props);
+		this._prepareGruntTasks();
 
 	},
 
