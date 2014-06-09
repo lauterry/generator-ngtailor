@@ -257,7 +257,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				this.thirdModules = props.thirdModules;
 
 				this._handleModules(props.modules, props.thirdModules);
-				this._setUpTests(props.tests);
+				this._setUpTests();
 				this._generateGruntfile();
 
                 done();
@@ -349,12 +349,16 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 			this.gruntfile.insertConfig('imagemin', "{dist : {options : {optimizationLevel: 7,progressive : false,interlaced : true},files: [{expand: true,cwd: '<%= assetsDir %>/',src: ['**/*.{png,jpg,gif}'],dest: '<%= distDir %>/'}]}}");
 		}
 
-		if (this.unitTest) {
+		if (this.unitTest && !this.e2eTest) {
 			this.gruntfile.insertConfig('karma' , "{dev_unit: {options: {configFile: 'test/conf/unit-test-conf.js',background: true, singleRun: false,autoWatch: true,reporters: ['progress']}},dist_unit: {options: {configFile: 'test/conf/unit-test-conf.js',background: false,singleRun: true,autoWatch: false,reporters: ['progress', 'coverage'],coverageReporter : {type : 'html',dir : '../reports/coverage'}}}}");
 		}
 
-		if (this.e2eTest) {
+		if (this.e2eTest && this.unitTest) {
 			this.gruntfile.insertConfig('karma', "{e2e: {options: {configFile: 'test/conf/e2e-test-conf.js'}}}");
+		}
+
+		if (this.unitTest && this.e2eTest) {
+			this.gruntfile.insertConfig('karma' , "{dev_unit: {options: {configFile: 'test/conf/unit-test-conf.js',background: true, singleRun: false,autoWatch: true,reporters: ['progress']}},dist_unit: {options: {configFile: 'test/conf/unit-test-conf.js',background: false,singleRun: true,autoWatch: false,reporters: ['progress', 'coverage'],coverageReporter : {type : 'html',dir : '../reports/coverage'}}}, e2e: {options: {configFile: 'test/conf/e2e-test-conf.js'}}}");
 		}
 
 		this._prepareGruntTasks();
@@ -528,9 +532,9 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		}
 	},
 
-	_setUpTests : function(tests) {
-		this.e2eTest = hasOption(tests, 'e2e');
-		this.unitTest = hasOption(tests, 'unit');
+	_setUpTests : function() {
+		this.e2eTest = hasOption(this.tests, 'e2e');
+		this.unitTest = hasOption(this.tests, 'unit');
 	},
 
 	_gruntBowerInstall : function () {
