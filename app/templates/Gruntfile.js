@@ -30,22 +30,22 @@ module.exports = function(grunt) {
         },
 		wiredep: {
             target: {
-                src: '<%%= assetsDir %>/index.html',
-                ignorePath: '<%%= assetsDir %>/',
+                src: '<%= assetsDir %>/index.html',
+                ignorePath: '<%= assetsDir %>/',
                 jsPattern: '<script type="text/javascript" src="{{filePath}}"></script>',
                 cssPattern: '<link rel="stylesheet" href="{{filePath}}" >'
             }
         },
         clean: {
-            dist: ['.tmp', '<%%= distDir %>']
+            dist: ['.tmp', '<%= distDir %>']
         },
         copy: {
             dist: {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '<%%= assetsDir %>',
-                    dest: '<%%= distDir %>/',
+                    cwd: '<%= assetsDir %>',
+                    dest: '<%= distDir %>/',
                     src: [
                         'index.html',
                         'img/**'
@@ -64,18 +64,18 @@ module.exports = function(grunt) {
             }
         },
         useminPrepare: {
-            html: '<%%= assetsDir %>/index.html',
+            html: '<%= assetsDir %>/index.html',
             options: {
-                dest: '<%%= distDir %>'
+                dest: '<%= distDir %>'
             }
         },
         usemin: {
-            html: '<%%= distDir %>/index.html'
+            html: '<%= distDir %>/index.html'
         },
 		browserSync: {
             dev: {
                 bsFiles: {
-                    src : ['<%%= assetsDir %>/**/*.html', '<%%= assetsDir %>/**/*.js', '<%%= assetsDir %>/**/*.css']
+                    src : ['<%= assetsDir %>/**/*.html', '<%= assetsDir %>/**/*.js', '<%= assetsDir %>/**/*.css']
                 },
                 options: {
                     watchTask: true,
@@ -86,7 +86,7 @@ module.exports = function(grunt) {
                         forms: true
                     },
                     server: {
-                        baseDir: "<%%= assetsDir %>"
+                        baseDir: "<%= assetsDir %>"
                     }
                 }
             }
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc'
             },
             all : {
-                src : ['<%%= assetsDir %>/js/**/*.js']
+                src : ['<%= assetsDir %>/js/**/*.js']
             }
         },
         watch: {
@@ -104,21 +104,21 @@ module.exports = function(grunt) {
                 interrupt: true
             },
             js: {
-                files: ['<%%= assetsDir %>/js/**/*.js'],
+                files: ['<%= assetsDir %>/js/**/*.js'],
                 tasks: ['newer:jshint']
             },
             html : {
-                files: ['<%%= assetsDir %>/**/*.html']
+                files: ['<%= assetsDir %>/**/*.html']
             },
             css: {
-                files: ['<%%= assetsDir %>/css/**/*.css']
+                files: ['<%= assetsDir %>/css/**/*.css']
             }
         },
         connect: {
             test : {
                 options: {
                     port: 8887,
-					base: '<%%= assetsDir %>',
+					base: '<%= assetsDir %>',
 					keepalive: false,
 					livereload: false,
 					open: false

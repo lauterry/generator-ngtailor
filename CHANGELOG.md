@@ -1,3 +1,14 @@
+## 2.0.5 (May 19, 2014)
+
+Enhancements:
+  - Use Gruntfile Editor API to generate Gruntfile
+  - Add custom yeoman greeting
+  - Update to yeoman 0.17
+  
+Bug fixes:
+  - missing angular-mocks in bower dev dependencies
+  - grunt report was broken
+
 ## 2.0.4 (May 17, 2014)
 
 Enhancements:
