@@ -547,15 +547,6 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				}
 			}
 		});
-	},
-
-	_finalize : function (err) {
-		if(err){
-			this.log.error(err);
-		} else {
-			this.log(chalk.green(final));
-			this.log(chalk.blue(final2));
-		}
 	}
 });
 
