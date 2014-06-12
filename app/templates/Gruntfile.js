@@ -24,7 +24,7 @@ module.exports = function(grunt) {
                         'package' : 'Package your web app for distribution',
                         'ci' : 'Run unit & e2e tests, package your webapp and generate reports. Use this task for Continuous Integration'
                     },
-                    tasks: ['dev', 'package', 'ci']
+                    tasks: ['dev', 'test:unit', 'test:e2e', 'report', 'package', 'ci']
                 }
             }
         },
