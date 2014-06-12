@@ -5,6 +5,7 @@ Enhancements:
   - Add custom yeoman greeting
   - Update to yeoman 0.17
   - Display success message and list available grunt tasks
+  - Simplify generator-ngtailor tests
   
 Bug fixes:
   - missing angular-mocks in bower dev dependencies

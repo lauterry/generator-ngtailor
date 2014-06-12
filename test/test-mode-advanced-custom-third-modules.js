@@ -2,58 +2,54 @@
 'use strict';
 var path = require('path');
 var helpers = require('yeoman-generator').test;
-var assert = require('assert');
+var assert = require('yeoman-generator').assert;
 
 // TODO Vérifier l'import des modules dans app.js
 
 describe('advanced custom third module', function () {
 
-	var prompts = {};
+	var gen;
 
 	beforeEach(function (done) {
-		helpers.testDirectory(path.join(__dirname, 'temp/advanced-custom-third-module'), function (err) {
-			if (err) {
-				return done(err);
-			}
 
-			this.app = helpers.createGenerator('ngtailor:app', [
-				'../../../app'
-			]);
-			done();
-		}.bind(this));
+		gen = helpers.run(path.join( __dirname, '../app'))
+			.inDir(path.join( __dirname, 'temp/advanced-custom-third-module'))
+			.withOptions({'skip-install' : true})
+			.withArguments([])
+			.withPrompt({
+				'mode': 'Advanced',
+				'name' : "MyApp",
+				'angular_version' : '2.0.0',
+				'version' : '0.0.1',
+				'description' : 'A Great App',
+				'csslint' : true,
+				'complexity' : true,
+				'test' : false,
+				'revision' : true,
+				'gitignore' : true,
+				'i18n' : true,
+				'csspreprocessor' : 'less',
+				'tests' : [],
+				'imagemin' : true,
+				'modules':[
+					'resourceModule',
+					'cookieModule',
+					'sanitizeModule',
+					'routeModule',
+					'touchModule',
+					'i18nModule',
+					'animateModule'
+				],
+				'thirdModules':[
+					'snapModule',
+					'carouselModule',
+					'bindonceModule',
+					'uiRouterModule',
+					'translateModule'
+				]
+			});
 
-		prompts = {
-			'mode': 'Advanced',
-			'name' : "MyApp",
-			'angular_version' : '2.0.0',
-			'version' : '0.0.1',
-			'description' : 'A Great App',
-			'csslint' : true,
-			'complexity' : true,
-			'test' : false,
-			'revision' : true,
-			'gitignore' : true,
-			'i18n' : true,
-			'csspreprocessor' : 'less',
-			'tests' : [],
-			'imagemin' : true,
-			'modules':[
-				'resourceModule',
-				'cookieModule',
-				'sanitizeModule',
-				'routeModule',
-				'touchModule',
-				'i18nModule',
-				'animateModule'
-			],
-			'thirdModules':[
-				'snapModule',
-				'carouselModule',
-				'bindonceModule',
-				'uiRouterModule',
-				'translateModule'
-			]
-		}
+		done();
 
 	});
 
@@ -77,9 +73,7 @@ describe('advanced custom third module', function () {
 
 		];
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.file(expected);
 			done();
 		});
@@ -91,9 +85,7 @@ describe('advanced custom third module', function () {
 			'app/scss/style.scss'
 		];
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.noFile(expected);
 			done();
 		});
@@ -101,9 +93,7 @@ describe('advanced custom third module', function () {
 
 	it("package.json content", function (done) {
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 
 			assert.fileContent('package.json', /"name": "my-app"/);
 			assert.fileContent('package.json', /"version": "0\.0\.1"/);
@@ -142,9 +132,7 @@ describe('advanced custom third module', function () {
 
 	it("bower.json content", function (done) {
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.fileContent('bower.json', /"angular": "2\.0\.0"/);
 			assert.fileContent('bower.json', /"angular-i18n": "2\.0\.0"/);
 			assert.fileContent('bower.json', /"angular-touch": "2\.0\.0"/);
@@ -167,9 +155,7 @@ describe('advanced custom third module', function () {
 
 	it("gruntfile.js content", function (done) {
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.fileContent('Gruntfile.js', /availabletasks/);
 			assert.fileContent('Gruntfile.js', /wiredep/);
 			assert.fileContent('Gruntfile.js', /clean/);
@@ -201,9 +187,7 @@ describe('advanced custom third module', function () {
 
 	it("app.js content", function (done) {
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.fileContent('app/js/app.js', /angular\.module\('MyApp'/);
 			assert.fileContent('app/js/app.js', /angular\.module\('MyApp'\)\.config\(function\(\$stateProvider, \$urlRouterProvider, \$translateProvider/);
 			done();

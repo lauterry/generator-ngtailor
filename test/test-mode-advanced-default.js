@@ -2,40 +2,36 @@
 'use strict';
 var path = require('path');
 var helpers = require('yeoman-generator').test;
-var assert = require('assert');
+var assert = require('yeoman-generator').assert;
 
 describe('advanced default', function () {
 
-	var prompts = {};
+	var gen;
 
 	beforeEach(function (done) {
-		helpers.testDirectory(path.join(__dirname, 'temp/advanced-default'), function (err) {
-			if (err) {
-				return done(err);
-			}
 
-			this.app = helpers.createGenerator('ngtailor:app', [
-				'../../../app'
-			]);
-			done();
-		}.bind(this));
+		gen = helpers.run(path.join( __dirname, '../app'))
+			.inDir(path.join( __dirname, 'temp/advanced-default'))
+			.withOptions({'skip-install' : true})
+			.withArguments([])
+			.withPrompt({
+				'mode': 'Advanced',
+				'name' : "MyApp",
+				'angular_version' : '2.0.0',
+				'version' : '0.0.1',
+				'description' : 'A Great App',
+				'csslint' : false,
+				'complexity' : false,
+				'test' : false,
+				'revision' : false,
+				'gitignore' : false,
+				'i18n' : false,
+				'csspreprocessor' : 'none',
+				'tests' : [],
+				'imagemin' : false
+			});
 
-		prompts = {
-			'mode': 'Advanced',
-			'name' : "MyApp",
-			'angular_version' : '2.0.0',
-			'version' : '0.0.1',
-			'description' : 'A Great App',
-			'csslint' : false,
-			'complexity' : false,
-			'test' : false,
-			'revision' : false,
-			'gitignore' : false,
-			'i18n' : false,
-			'csspreprocessor' : 'none',
-			'tests' : [],
-			'imagemin' : false
-		}
+		done();
 
 	});
 
@@ -55,9 +51,7 @@ describe('advanced default', function () {
 			'app/js/app.js'
 		];
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.file(expected);
 			done();
 		});
@@ -72,9 +66,7 @@ describe('advanced default', function () {
 			'app/scss/style.scss'
 		];
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.noFile(expected);
 			done();
 		});
@@ -82,9 +74,7 @@ describe('advanced default', function () {
 
 	it("package.json content", function (done) {
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 
 			assert.fileContent('package.json', /"name": "my-app"/);
 			assert.fileContent('package.json', /"version": "0\.0\.1"/);
@@ -122,9 +112,7 @@ describe('advanced default', function () {
 
 	it("bower.json content", function (done) {
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.fileContent('bower.json', /"angular": "2\.0\.0"/);
 			assert.noFileContent('bower.json', /angular-mocks: "2\.0\.0"/);
 			assert.noFileContent('bower.json', /"angular-i18n": "2\.0\.0"/);
@@ -146,9 +134,7 @@ describe('advanced default', function () {
 
 	it("gruntfile.js content", function (done) {
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.fileContent('Gruntfile.js', /availabletasks/);
 			assert.fileContent('Gruntfile.js', /wiredep/);
 			assert.fileContent('Gruntfile.js', /clean/);
@@ -180,9 +166,7 @@ describe('advanced default', function () {
 
 	it("app.js content", function (done) {
 
-		helpers.mockPrompt(this.app, prompts);
-		this.app.options['skip-install'] = true;
-		this.app.run({}, function () {
+		gen.onEnd(function() {
 			assert.fileContent('app/js/app.js', /angular\.module\('MyApp'/);
 			assert.noFileContent('app/js/app.js', /angular\.module\('MyApp'\)\.config\(function\(\$stateProvider, \$urlRouterProvider, \$translateProvider/);
 			done();
