@@ -76,6 +76,8 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 				this.installDependencies({
 					callback : function() {
 						this._gruntBowerInstall.call(this);
+						this.log(chalk.green('\nBravo, your angular Project is ready ! Please find below some grunt tasks prepared for you :\n'));
+						this.spawnCommand('grunt', ['ls']);
 					}.bind(this)
 				});
             }
