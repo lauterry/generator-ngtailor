@@ -4,6 +4,7 @@ Enhancements:
   - Use Gruntfile Editor API to generate Gruntfile
   - Add custom yeoman greeting
   - Update to yeoman 0.17
+  - Display Success message and list available grunt tasks
   
 Bug fixes:
   - missing angular-mocks in bower dev dependencies
