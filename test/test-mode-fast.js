@@ -19,7 +19,7 @@ describe('fast', function () {
 			});
 
 		done();
-		
+
 	});
 
 	it('creates expected files', function (done) {
@@ -64,7 +64,7 @@ describe('fast', function () {
 
 		gen.onEnd(function() {
 
-			assert.fileContent('package.json', /"name": "generator-ngtailor"/);
+			assert.fileContent('package.json', /"name": "fast"/);
 			assert.fileContent('package.json', /"version": "0\.0\.1"/);
 
 			assert.fileContent('package.json', /grunt-usemin/);
@@ -156,7 +156,7 @@ describe('fast', function () {
 	it("app.js content", function (done) {
 
 		gen.onEnd(function() {
-			assert.fileContent('app/js/app.js', /angular\.module\('generator-ngtailor'/);
+			assert.fileContent('app/js/app.js', /angular\.module\('fast'/);
 			assert.noFileContent('app/js/app.js', /angular\.module\('MyApp'\)\.config\(function\(\$stateProvider, \$urlRouterProvider, \$translateProvider/);
 			done();
 		});

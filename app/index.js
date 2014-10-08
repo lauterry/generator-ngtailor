@@ -4,7 +4,7 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var semver = require("semver");
-var currentWorkingDirectory = path.basename(process.cwd());
+var currentWorkingDirectory;
 var wiredep = require('wiredep');
 var yosay = require('yosay');
 var GruntfileEditor = require('gruntfile-editor');
@@ -37,7 +37,7 @@ var final = '\n\nYour angular project has been successfully generated.' +
 var NgtailorGenerator = yeoman.generators.Base.extend({
 
     init: function () {
-
+    	currentWorkingDirectory = path.basename(process.cwd());
 		this.name = currentWorkingDirectory;
         this.angular_version = '*';
         this.version = '0.0.1';
