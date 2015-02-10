@@ -178,7 +178,7 @@ describe('advanced custom third module', function () {
 
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('report', \[\s+'plato',\s+ 'connect:plato'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('dev', \[\s+'less',\s+'browserSync',\s+'watch'\s+\]\)/);
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \[\s+'jshint',\s+'clean',\s+'useminPrepare',\s+'copy',\s+'concat',\s+'ngmin',\s+'uglify',\s+'less',\s+'cssmin',\s+'rev',\s+'imagemin',\s+'usemin',\s+'htmlmin'\s+\]\)/);
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \[\s+'jshint',\s+'clean',\s+'useminPrepare',\s+'copy',\s+'concat',\s+'ngAnnotate',\s+'uglify',\s+'less',\s+'cssmin',\s+'rev',\s+'imagemin',\s+'usemin',\s+'htmlmin'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \[\s+'package',\s+'plato'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ls', \['availabletasks'\]\)/);
 
