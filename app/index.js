@@ -382,7 +382,6 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		packageTasks.push('useminPrepare');
 		packageTasks.push('copy');
 		packageTasks.push('concat');
-		packageTasks.push('ngmin');
 		packageTasks.push('uglify');
 
 		if(hasOption(this.csspreprocessor, 'sass')) {
