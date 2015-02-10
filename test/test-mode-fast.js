@@ -51,7 +51,7 @@ describe('fast', function () {
 			'app/less/app.less',
 			'app/less/style.less',
 			'app/scss/app.scss',
-			'app/scss/style.scss'
+			'app/scss/_style.scss'
 		];
 
 		gen.onEnd(function() {

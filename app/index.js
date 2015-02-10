@@ -275,7 +275,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 		this.template('app/js/app.js', 'app/js/app.js');
 
 		if(hasOption(this.csspreprocessor, 'sass')){
-			this.copy('app/scss/style.scss', 'app/scss/style.scss');
+			this.copy('app/scss/_style.scss', 'app/scss/_style.scss');
 			this.copy('app/scss/app.scss', 'app/scss/app.scss');
 		} else if (hasOption(this.csspreprocessor, 'less')) {
 			this.copy('app/less/style.less', 'app/less/style.less');

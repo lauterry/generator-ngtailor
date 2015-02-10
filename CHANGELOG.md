@@ -1,3 +1,8 @@
+## 2.0.5 (???)
+
+Enhancements:
+  - Add underscore to style.scss filename
+
 ## 2.0.5 (May 19, 2014)
 
 Enhancements:

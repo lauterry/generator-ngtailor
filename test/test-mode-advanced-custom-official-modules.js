@@ -75,7 +75,7 @@ describe('advanced custom official module', function () {
 	it("don't create unexpected files", function (done) {
 		var expected = [
 			'app/scss/app.scss',
-			'app/scss/style.scss'
+			'app/scss/_style.scss'
 		];
 
 		gen.onEnd(function() {

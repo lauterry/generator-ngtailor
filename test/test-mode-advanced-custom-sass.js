@@ -51,7 +51,7 @@ describe('advanced custom sass', function () {
 			'app/js/app.js',
 			'.csslintrc',
 			'app/scss/app.scss',
-			'app/scss/style.scss'
+			'app/scss/_style.scss'
 		];
 
 		gen.onEnd(function() {
