@@ -53,16 +53,19 @@ module.exports = function(grunt) {
                 }]
             }
         },
-        ngmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/concat/js',
-                    src: '*.js',
-                    dest: '.tmp/concat/js'
-                }]
-            }
-        },
+		ngAnnotate: {
+			options: {
+				// Task-specific options go here.
+			},
+			dist: {
+				files: [{
+					expand: true,
+					cwd: '.tmp/concat/js',
+					src: '*.js',
+					dest: '.tmp/concat/js'
+				}]
+			}
+		},
         useminPrepare: {
             html: '<%= assetsDir %>/index.html',
             options: {

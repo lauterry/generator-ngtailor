@@ -2,6 +2,7 @@
 
 Enhancements:
   - Add underscore to style.scss filename
+  - Replace depreciated ngmin with ng-annotate
 
 ## 2.0.5 (May 19, 2014)
 

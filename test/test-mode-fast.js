@@ -68,7 +68,7 @@ describe('fast', function () {
 			assert.fileContent('package.json', /"version": "0\.0\.1"/);
 
 			assert.fileContent('package.json', /grunt-usemin/);
-			assert.fileContent('package.json', /grunt-ngmin/);
+			assert.fileContent('package.json', /grunt-ng-annotate/);
 			assert.fileContent('package.json', /grunt-contrib-clean/);
 			assert.fileContent('package.json', /grunt-contrib-concat/);
 			assert.fileContent('package.json', /grunt-contrib-uglify/);
