@@ -1,9 +1,12 @@
-## 2.0.5 (???)
+## 2.1.0 (???)
 
 Enhancements:
   - Add underscore to style.scss filename
   - Replace depreciated ngmin with ng-annotate
   - Add grunt-contrib-htmlmin to minify html files
+  - Upgrade grunt-wiredep to 2.0.0
+  - Upgrade load-grunt-tasks to 3.1.0
+  - Upgrade grunt-browser-sync to 1.9.1
 
 ## 2.0.5 (May 19, 2014)
 
