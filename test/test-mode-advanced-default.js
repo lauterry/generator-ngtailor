@@ -145,6 +145,7 @@ describe('advanced default', function () {
 			assert.fileContent('Gruntfile.js', /browserSync/);
 			assert.fileContent('Gruntfile.js', /jshint/);
 			assert.fileContent('Gruntfile.js', /watch/);
+			assert.fileContent('Gruntfile.js', /htmlmin/);
 
 			assert.noFileContent('Gruntfile.js', /rev/);
 			assert.noFileContent('Gruntfile.js', /csslint/);
@@ -156,7 +157,7 @@ describe('advanced default', function () {
 
 			assert.noFileContent('Gruntfile.js', /grunt\.registerTask\('report', \[\s+'plato',\s+'connect:plato'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('dev', \[\s+'browserSync',\s+'watch'\s+\]\)/);
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \[\s+'jshint',\s+'clean',\s+'useminPrepare',\s+'copy',\s+'concat',\s+'ngmin',\s+'uglify',\s+'cssmin',\s+'usemin'\s+\]\)/)
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \[\s+'jshint',\s+'clean',\s+'useminPrepare',\s+'copy',\s+'concat',\s+'ngmin',\s+'uglify',\s+'cssmin',\s+'usemin',\s+'htmlmin'\s+\]\)/)
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \['package'\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ls', \['availabletasks'\]\)/);
 

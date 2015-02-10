@@ -66,6 +66,24 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
+		htmlmin: {
+			dist: {
+				options: {
+					collapseWhitespace: true,
+					conservativeCollapse: true,
+					collapseBooleanAttributes: true,
+					removeComments: true,
+					removeCommentsFromCDATA: true,
+					removeOptionalTags: true
+				},
+				files: [{
+					expand: true,
+					cwd: '<%= distDir %>',
+					src: ['index.html', '**/*.html'],
+					dest: '<%= distDir %>'
+				}]
+			}
+		},
         useminPrepare: {
             html: '<%= assetsDir %>/index.html',
             options: {

@@ -3,6 +3,7 @@
 Enhancements:
   - Add underscore to style.scss filename
   - Replace depreciated ngmin with ng-annotate
+  - Add grunt-contrib-htmlmin to minify html files
 
 ## 2.0.5 (May 19, 2014)
 

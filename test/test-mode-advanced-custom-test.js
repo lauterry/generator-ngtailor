@@ -162,12 +162,13 @@ describe('advanced custom test', function () {
 			assert.fileContent('Gruntfile.js', /less/);
 			assert.fileContent('Gruntfile.js', /imagemin/);
 			assert.fileContent('Gruntfile.js', /karma/);
+			assert.fileContent('Gruntfile.js', /htmlmin/);
 
 			assert.noFileContent('Gruntfile.js', /sass/);
 
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('report', \[\s+'plato',\s+'connect:plato'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('dev', \[\s+'less',\s+'browserSync',\s+'karma:dev_unit:start',\s+'watch'\s+\]\)/);
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \[\s+'jshint',\s+'clean',\s+'useminPrepare',\s+'copy',\s+'concat',\s+'ngmin',\s+'uglify',\s+'less',\s+'cssmin',\s+'rev',\s+'imagemin',\s+'usemin'\s+\]\)/);
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \[\s+'jshint',\s+'clean',\s+'useminPrepare',\s+'copy',\s+'concat',\s+'ngmin',\s+'uglify',\s+'less',\s+'cssmin',\s+'rev',\s+'imagemin',\s+'usemin',\s+'htmlmin'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \[\s+'package',\s+'connect:test',\s+'karma:dist_unit:start',\s+'karma:e2e',\s+'plato'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ls', \['availabletasks'\]\)/);
 

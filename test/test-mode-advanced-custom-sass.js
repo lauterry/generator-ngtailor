@@ -146,6 +146,7 @@ describe('advanced custom sass', function () {
 			assert.fileContent('Gruntfile.js', /browserSync/);
 			assert.fileContent('Gruntfile.js', /jshint/);
 			assert.fileContent('Gruntfile.js', /watch/);
+			assert.fileContent('Gruntfile.js', /htmlmin/);
 
 			assert.fileContent('Gruntfile.js', /rev/);
 			assert.fileContent('Gruntfile.js', /csslint/);
@@ -158,7 +159,7 @@ describe('advanced custom sass', function () {
 
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('report', \[\s+'plato',\s+'connect:plato'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('dev', \[\s+'sass',\s+'browserSync',\s+'watch'\s+\]\)/);
-			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \[\s+'jshint',\s+'clean',\s+'useminPrepare',\s+'copy',\s+'concat',\s+'ngmin',\s+'uglify',\s+'sass',\s+'cssmin',\s+'rev',\s+'imagemin',\s+'usemin'\s+\]\)/);
+			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('package', \[\s+'jshint',\s+'clean',\s+'useminPrepare',\s+'copy',\s+'concat',\s+'ngmin',\s+'uglify',\s+'sass',\s+'cssmin',\s+'rev',\s+'imagemin',\s+'usemin',\s+'htmlmin'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ci', \[\s+'package',\s+'plato'\s+\]\)/);
 			assert.fileContent('Gruntfile.js', /grunt\.registerTask\('ls', \['availabletasks'\]\)/);
 

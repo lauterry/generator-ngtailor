@@ -398,6 +398,7 @@ var NgtailorGenerator = yeoman.generators.Base.extend({
 			packageTasks.push('imagemin');
 		}
 		packageTasks.push('usemin');
+		packageTasks.push('htmlmin');
 
 		if (packageTasks.length) {
 			this.gruntfile.registerTask('package', packageTasks)
