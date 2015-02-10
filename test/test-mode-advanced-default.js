@@ -139,7 +139,7 @@ describe('advanced default', function () {
 			assert.fileContent('Gruntfile.js', /wiredep/);
 			assert.fileContent('Gruntfile.js', /clean/);
 			assert.fileContent('Gruntfile.js', /copy/);
-			assert.fileContent('Gruntfile.js', /ngmin/);
+			assert.fileContent('Gruntfile.js', /ngAnnotate/);
 			assert.fileContent('Gruntfile.js', /useminPrepare/);
 			assert.fileContent('Gruntfile.js', /usemin/);
 			assert.fileContent('Gruntfile.js', /browserSync/);
