@@ -22,7 +22,7 @@ ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower
 ## Features
 * Let you choose the Angularjs modules you need.
 * Your assets dependencies are managed by [bower](http://www.bower.io)
-* Run [Brian Ford](https://twitter.com/briantford) [ng-min](https://github.com/btford/ngmin) before your minification
+* Run [ng-annotate](https://github.com/olov/ng-annotate) before your minification
 * Replace your scripts and stylesheets declaration with the minified version when packaging your app for production thanks to [http://yeoman.io/](Yeoman) [grunt-usemin](https://github.com/yeoman/grunt-usemin)
 * Watch for you assets changes and automatically run `jshint` or `csslint` on your code and even unit tests.
 * Livereload is out of the box. No F5 anymore
