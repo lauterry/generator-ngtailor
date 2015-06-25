@@ -8,7 +8,7 @@ Offers you a tailor-made workflow for your Angularjs Web App.
 
 <img height="175" src="http://bower.io/img/bower-logo.png" />
 
-<img height="175" src="https://raw.githubusercontent.com/yeoman/yeoman.io/master/media/optimized/yeoman-600x600-opaque.png">
+<img height="175" src="https://raw.githubusercontent.com/yeoman/yeoman.io/master/app/assets/img/yeoman.png">
 
 <img height="175" src="https://s3.amazonaws.com/media-p.slid.es/uploads/hugojosefson/images/86267/angularjs-logo.png"/>
 
